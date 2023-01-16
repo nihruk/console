@@ -10,6 +10,58 @@ servers:
   - url: 'https://example.com'
     description: Live API.
 paths:
+  '/resource':
+    get:
+      tags:
+        - Resource
+      description: Get a collection of resources.
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKResourceCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+  '/resource/{resourceId}':
+    get:
+      tags:
+        - Resource
+      description: Get a resource.
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKResource'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/resourceId'
   '/program':
     get:
       tags:
@@ -406,6 +458,57 @@ paths:
       - '$ref': '#/components/parameters/userId'
 components:
   schemas:
+    resource:
+      type: object
+      properties:
+        id:
+          '$ref': '#/components/schemas/resourceId'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The resource's human-readable name
+        links:
+          type: array
+          items:
+            '$ref': '#/components/schemas/link'
+          uniqueItems: true
+          minItems: 1
+      required:
+        - id
+        - links
+      additionalProperties: false
+    resourceLink:
+        type: string
+        format: uri
+        examples:
+          - /resource/123
+    rel:
+      type: string
+      minLength: 1
+      maxLength: 255
+      examples:
+        - related
+      description: The IANA relation to the link target
+    link:
+      type: object
+      properties:
+        type:
+          type: string
+          minLength: 1
+          maxLength: 255
+          examples:
+            - application/pdf
+          description: The link target's media/MIME type
+        rel:
+          '$ref': '#/components/schemas/rel'
+        uri:
+          type: string
+          format: uri
+      required:
+        - type
+        - uri
+      additionalProperties: false
     organization:
       type: object
       properties:
@@ -503,6 +606,10 @@ components:
           '$ref': '#/components/schemas/isrctn'
         prospero:
           '$ref': '#/components/schemas/prospero'
+        resources:
+          type: array
+          items:
+            '$ref': '#/components/schemas/resourceLink'
       required:
         - id
         - manager
@@ -568,6 +675,11 @@ components:
         - message
         - http
       additionalProperties: false
+    resourceId:
+      name: Resource ID
+      type: string
+      minLength: 1
+      maxLength: 255
     programId:
       title: Program ID
       description: A research program ID.
@@ -744,6 +856,13 @@ components:
         - postcode
       additionalProperties: false
   parameters:
+    resourceId:
+      name: resourceId
+      description: Resource ID
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/resourceId'
     programId:
       name: programId
       description: Research program ID.
@@ -798,6 +917,20 @@ components:
       schema:
         '$ref': '#/components/schemas/userId'
   responses:
+    200OKResource:
+      description: A resource
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/resource'
+    200OKResourceCollection:
+      description: A collection of resources
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/resource'
     200OKProgram:
       description: A research program.
       content:
