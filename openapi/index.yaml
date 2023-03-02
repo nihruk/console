@@ -147,17 +147,7 @@ paths:
         name: contractor
       - '$ref': '#/components/parameters/callIdFilter'
       - '$ref': '#/components/parameters/personIdFilter'
-        name: lead_applicants
-      - '$ref': '#/components/parameters/personIdFilter'
-        name: joint_lead_applicants
-      - '$ref': '#/components/parameters/personIdFilter'
-        name: lead_investigators
-      - '$ref': '#/components/parameters/personIdFilter'
-        name: chief_investigators
-      - '$ref': '#/components/parameters/personIdFilter'
-        name: co_investigators
-      - '$ref': '#/components/parameters/personIdFilter'
-        name: directors
+        name: people
   '/award/{awardId}':
     get:
       tags:
@@ -782,30 +772,6 @@ components:
           '$ref': '#/components/schemas/programReference'
         contractor:
           '$ref': '#/components/schemas/organizationReference'
-        lead_applicants:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
-        joint_lead_applicants:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
-        lead_investigators:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
-        chief_investigators:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
-        co_investigators:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
-        directors:
-          type: array
-          items:
-            '$ref': '#/components/schemas/personReference'
         isrctn:
           '$ref': '#/components/schemas/isrctn'
         prospero:
@@ -814,6 +780,10 @@ components:
           type: array
           items:
             '$ref': '#/components/schemas/resourceLink'
+        people:
+          type: array
+          items:
+            '$ref': '#/components/schemas/personInvolvement'
       required:
         - id
         - manager
@@ -1130,6 +1100,72 @@ components:
       format: uri
       examples:
         - /person/123
+    personInvolvement:
+      name: Involvement
+      oneOf:
+      - type: object
+      - '$ref': '#/components/schemas/contributorInvolvement'
+      discriminator:
+        propertyName: role
+        mapping:
+          lead_applicant: '#/components/schemas/simpleInvolvement'
+          joint_lead_applicant: '#/components/schemas/simpleInvolvement'
+          lead_investigator: '#/components/schemas/simpleInvolvement'
+          chief_investigator: '#/components/schemas/simpleInvolvement'
+          co_investigator: '#/components/schemas/simpleInvolvement'
+          director: '#/components/schemas/simpleInvolvement'
+          contributor: '#/components/schemas/contributorInvolvement'
+    simpleInvolvement:
+      name: Simple involvement
+      type: object
+      properties:
+        person:
+          '$ref': '#/components/schemas/personReference'
+        role:
+          description: This person's role as part of their involvement.
+          enum:
+            - lead_applicant
+            - joint_lead_applicant
+            - lead_investigator
+            - chief_investigator
+            - co_investigator
+            - director
+            - contributor
+      required:
+        - person
+        - role
+    contributorInvolvement:
+      name: Contributor involvement
+      allOf:
+        - '$ref': '#/components/schemas/simpleInvolvement'
+        - type: object
+          properties:
+            credit:
+              name: CRediT role
+              description: The [Contributor Roles Taxonomy](https://credit.niso.org/) (CRediT) roles that describes this contributor's involvement.
+              type: array
+              items:
+                '$ref': '#/components/schemas/credit'
+    credit:
+      description: A [Contributor Roles Taxonomy](https://credit.niso.org/) (CRediT) role that describes a contributor's involvement.
+      enum:
+        - conceptualization
+        - data-curation
+        - formal-analysis
+        - funding-acquisition
+        - investigation
+        - methodology
+        - project-administration
+        - resources
+        - software
+        - supervision
+        - validation
+        - visualization
+        - writing-original-draft
+        - writing-review-editing
+    institutionId:
+      title: Institution ID
+      description: An institution ID.
     organizationId:
       title: Organization ID
       description: An organization ID.
@@ -1546,37 +1582,6 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/person'
-      links:
-        lead_applicant_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a lead applicant.
-          parameters:
-            lead_applicants: '$response.body#/id'
-        joint_lead_applicant_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a joint lead applicant.
-          parameters:
-            joint_lead_applicants: '$response.body#/id'
-        lead_investigator_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a lead investigator.
-          parameters:
-            lead_investigators: '$response.body#/id'
-        chief_investigator_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a chief investigator.
-          parameters:
-            chief_investigators: '$response.body#/id'
-        co_investigator_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a co-investigator.
-          parameters:
-            co_investigator: '$response.body#/id'
-        director_awards:
-          operationId: getAwardCollection
-          description: Get all awards for which this person is a director.
-          parameters:
-            directors: '$response.body#/id'
     200OKPersonCollection:
       description: A collection of people.
       content:
