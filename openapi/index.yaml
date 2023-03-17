@@ -89,7 +89,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/organizationIdFilter'
-        name: host
+        name: manager
       - '$ref': '#/components/parameters/programIdFilter'
       - '$ref': '#/components/parameters/organizationIdFilter'
         name: contractor
@@ -469,7 +469,7 @@ components:
           description: The absolute URL to the award's own website.
           type: string
           format: uri
-        host:
+        manager:
           '$ref': '#/components/schemas/organizationReference'
         program:
           '$ref': '#/components/schemas/programReference'
@@ -505,7 +505,7 @@ components:
           '$ref': '#/components/schemas/prospero'
       required:
         - id
-        - host
+        - manager
         - program
         - contractor
       additionalProperties: false
@@ -887,10 +887,10 @@ components:
           operationId: getAwardCollection
           parameters:
             contractor: '$response.body#/id'
-        hostedAwards:
+        managedAwards:
           operationId: getAwardCollection
           parameters:
-            host: '$response.body#/id'
+            manager: '$response.body#/id'
     200OKOrganizationCollection:
       description: A collection of organizations.
       content:
