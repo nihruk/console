@@ -185,6 +185,170 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/awardId'
+  '/journal':
+    get:
+      tags:
+        - Journal
+      summary: Get a collection of journals
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKJournalCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+  '/journal/{journalId}':
+    get:
+      tags:
+        - Journal
+      summary: Get a journal
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKJournal'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/journalId'
+  '/volume':
+    get:
+      operationId: getVolumeCollection
+      tags:
+        - Volume
+      summary: Get a collection of volumes
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKVolumeCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/journalIdFilter'
+  '/volume/{volumeId}':
+    get:
+      tags:
+        - Volume
+      summary: Get a volume
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKVolume'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/volumeId'
+  '/publication':
+    get:
+      operationId: getPublicationCollection
+      tags:
+        - Publication
+      summary: Get a collection of publications
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKPublicationCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/awardIdFilter'
+      - '$ref': '#/components/parameters/journalIdFilter'
+      - '$ref': '#/components/parameters/volumeIdFilter'
+  '/publication/{publicationId}':
+    get:
+      tags:
+        - Publication
+      summary: Get a publication
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKPublication'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/publicationId'
   '/person':
     get:
       tags:
@@ -529,14 +693,17 @@ components:
       additionalProperties: false
     program:
       type: object
+      title: Program
+      description: A research program.
       properties:
         id:
           '$ref': '#/components/schemas/programId'
         name:
           type: string
+          title: Name
           minLength: 1
           maxLength: 255
-          description: The program's human-readable name.
+          description: The research program's human-readable name.
       required:
         - id
         - name
@@ -548,6 +715,11 @@ components:
       properties:
         id:
           '$ref': '#/components/schemas/awardId'
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The award's human-readable title.
         start:
           title: Start date
           description: The date the research started.
@@ -564,6 +736,7 @@ components:
           title: The total NIHR funding granted to the award
           description: 'The granted funding in pence sterling. Example: `254566100` representing £2,545,661.00.'
           type: integer
+          multipleOf: 1
           minimum: 1
           examples:
             - 254566100
@@ -615,6 +788,117 @@ components:
         - manager
         - program
         - contractor
+      additionalProperties: false
+    journal:
+      type: object
+      title: Journal
+      description: A journal.
+      properties:
+        id:
+          '$ref': '#/components/schemas/journalId'
+        name:
+          title: Name
+          description: The journal's human-readable name.
+          type: string
+          minLength: 1
+          maxLength: 255
+          examples:
+            - Efficacy and Mechanism Evaluation
+            - Health and Social Care Delivery Research
+            - Programme Grants for Applied Research
+        name_short:
+          title: Short name
+          description: The journal's short human-readable name.
+          type: string
+          minLength: 1
+          maxLength: 255
+          examples:
+            - Efficacy Mech Eval
+            - Health Soc Care Deliv Res
+            - Programme Grants Appl Res
+        description:
+          title: Description
+          description: A description of the journal.
+          type: string
+          minLength: 1
+        issns:
+          '$ref': '#/components/schemas/issns'
+        images:
+          title: Images
+          description: Images of the journal.
+          type: array
+          minItems: 1
+          items:
+            title: The URL to the image.
+            type: string
+            format: uri
+      required:
+        - id
+        - name
+        - description
+        - issns
+        - images
+      additionalProperties: false
+    volume:
+      type: object
+      title: Volume
+      description: A volume.
+      properties:
+        id:
+          '$ref': '#/components/schemas/volumeId'
+        journal:
+          '$ref': '#/components/schemas/journalReference'
+        number:
+          title: The volume number
+          type: integer
+          multipleOf: 1
+          minimum: 1
+          examples:
+            - 11
+      required:
+        - id
+        - journal
+        - number
+      additionalProperties: false
+    publication:
+      type: object
+      title: Publication
+      description: A publication.
+      properties:
+        id:
+          '$ref': '#/components/schemas/publicationId'
+        award:
+          '$ref': '#/components/schemas/awardReference'
+        journal:
+          '$ref': '#/components/schemas/journalReference'
+        volume:
+          '$ref': '#/components/schemas/volumeReference'
+        doi:
+          '$ref': '#/components/schemas/doi'
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The publication's human-readable title.
+        abstract:
+          '$ref': '#/components/schemas/formattedText'
+        plain_summary:
+          '$ref': '#/components/schemas/formattedText'
+        scientific_summary:
+          '$ref': '#/components/schemas/formattedText'
+        citation:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The publication's human-readable citation.
+      required:
+        - id
+        - award
+        - journal
+        - doi
+        - name
+        - abstract
+        - citation
       additionalProperties: false
     person:
       type: object
@@ -709,6 +993,53 @@ components:
       format: uri
       examples:
         - /award/06/303/20
+    journalId:
+      title: Journal ID
+      description: A journal ID.
+      type: string
+      minLength: 1
+      maxLength: 255
+      examples:
+        - eme
+        - hsdr
+        - pfgar
+    journalReference:
+      title: Journal reference
+      description: The relative URL of the endpoint to call to retrieve this journal.
+      type: string
+      format: uri
+      examples:
+        - /journal/eme
+        - /journal/hsdr
+        - /journal/pgfar
+    volumeId:
+      title: Volume ID
+      description: A volume ID.
+      type: string
+      minLength: 1
+      maxLength: 255
+    volumeReference:
+      title: Volume reference
+      description: The relative URL of the endpoint to call to retrieve this volume.
+      type: string
+      format: uri
+      examples:
+        - /volume/???
+    publicationId:
+      title: Publication ID
+      description: A publication ID.
+      type: string
+      minLength: 1
+      maxLength: 255
+      examples:
+        - DANE8826
+    publicationReference:
+      title: Publication reference
+      description: The relative URL of the endpoint to call to retrieve this publication.
+      type: string
+      format: uri
+      examples:
+        - /publication/DANE8826
     personId:
       title: Person ID
       description: A person ID.
@@ -787,6 +1118,55 @@ components:
       maxLength: 255
       examples:
         - CRD42021232535
+    issn:
+      title: ISSN
+      description: International Standard Serial Number.
+      externalDocs:
+        url: https://www.issn.org/
+        description: Official ISSN site.
+      type: string
+      pattern: '^[0-9]{4}-[0-9]{3}[0-9xX]$'
+      examples:
+        - 0317-8471
+        - 1050-124X
+    issns:
+      title: ISSNs
+      type: object
+      properties:
+        print:
+          '$ref': '#/components/schemas/issn'
+        online:
+          '$ref': '#/components/schemas/issn'
+      additionalProperties: false
+      required:
+        - print
+        - online
+    doi:
+      title: DOI
+      description: Digital Object Identifier
+      externalDocs:
+        url: https://www.doi.org/
+        description: Official DOI site.
+      type: string
+      pattern: '^https:\/\/doi.org\/'
+      examples:
+        - https://doi.org/10.1000/182
+    formattedText:
+      title: Formatted text
+      description: Text that may have a content type different from `text/plain` and that may thus require additional formatting.
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+        type:
+          title: The text's content type
+          enum:
+            - text/plain
+      additionalProperties: false
+      required:
+        - text
+        - type
     coordinates:
       type: object
       title: Coordinates
@@ -883,6 +1263,51 @@ components:
       required: true
       schema:
         '$ref': '#/components/schemas/awardId'
+    awardIdFilter:
+      name: award
+      description: Research award ID.
+      in: query
+      schema:
+        '$ref': '#/components/schemas/awardId'
+    journalId:
+      name: journalId
+      description: Journal ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/journalId'
+    journalIdFilter:
+      name: journal
+      description: Research journal ID.
+      in: query
+      schema:
+        '$ref': '#/components/schemas/journalId'
+    volumeId:
+      name: volumeId
+      description: Volume ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/volumeId'
+    volumeIdFilter:
+      name: volume
+      description: Research volume ID.
+      in: query
+      schema:
+        '$ref': '#/components/schemas/volumeId'
+    publicationId:
+      name: publicationId
+      description: Publication ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/publicationId'
+    publicationIdFilter:
+      name: publication
+      description: Research publication ID.
+      in: query
+      schema:
+        '$ref': '#/components/schemas/publicationId'
     personId:
       name: personId
       description: Person ID.
@@ -964,6 +1389,53 @@ components:
             type: array
             items:
               '$ref': '#/components/schemas/awardReference'
+    200OKJournal:
+      description: A journal.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/journal'
+    200OKJournalCollection:
+      description: A collection of journals.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/journalReference'
+    200OKVolume:
+      description: A volume.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/volume'
+      links:
+        publications:
+          operationId: getPublicationCollection
+          parameters:
+            volume: '$response.body#/id'
+    200OKVolumeCollection:
+      description: A collection of volumes.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/volumeReference'
+    200OKPublication:
+      description: A publication.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/publication'
+    200OKPublicationCollection:
+      description: A collection of publications.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/publicationReference'
     200OKPerson:
       description: A person.
       content:
