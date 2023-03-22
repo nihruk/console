@@ -145,6 +145,7 @@ paths:
       - '$ref': '#/components/parameters/programIdFilter'
       - '$ref': '#/components/parameters/organizationIdFilter'
         name: contractor
+      - '$ref': '#/components/parameters/callIdFilter'
       - '$ref': '#/components/parameters/personIdFilter'
         name: lead_applicants
       - '$ref': '#/components/parameters/personIdFilter'
@@ -185,6 +186,34 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/awardId'
+  '/call/{callId}':
+    get:
+      tags:
+        - Call
+      summary: Get a research call
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKCall'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+    parameters:
+      - '$ref': '#/components/parameters/callId'
   '/journal':
     get:
       tags:
@@ -747,6 +776,8 @@ components:
           format: uri
         manager:
           '$ref': '#/components/schemas/organizationReference'
+        call:
+          '$ref': '#/components/schemas/callReference'
         program:
           '$ref': '#/components/schemas/programReference'
         contractor:
@@ -786,8 +817,42 @@ components:
       required:
         - id
         - manager
+        - call
         - program
         - contractor
+      additionalProperties: false
+    call:
+      title: Research call
+      description: A research call
+      type: object
+      properties:
+        id:
+          '$ref': '#/components/schemas/callId'
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The research call's human-readable name.
+          examples:
+            - HTA Clinical Trials - Pharmaceutical Panel
+        start:
+          title: Start date
+          description: The date the call opened.
+          type: full-date
+          examples:
+            - 1970-01-01
+        end:
+          title: End date
+          description: The date the call closed.
+          type: full-date
+          examples:
+            - 2000-01-01
+        programStream:
+          '$ref': '#/components/schemas/programStream'
+      required:
+        - id
+        - name
+        - programStream
       additionalProperties: false
     journal:
       type: object
@@ -993,6 +1058,18 @@ components:
       format: uri
       examples:
         - /award/06/303/20
+    callId:
+      description: A research call ID.
+      type: string
+      minLength: 1
+      maxLength: 255
+    callReference:
+      title: Research call reference
+      description: The relative URL of the endpoint to call to retrieve this research call.
+      type: string
+      format: uri
+      examples:
+        - /call/06/303
     journalId:
       title: Journal ID
       description: A journal ID.
@@ -1087,6 +1164,14 @@ components:
       examples:
         - 123e4567-e89b-12d3-a456-426614174000
       readonly: true
+    programStream:
+      title: Program stream
+      description: |
+        - A `commissioned` research call is a call for research on a specific topic
+        - A `researcher-led` call is an open call for research
+      enum:
+        - commissioned
+        - researcher-led
     orcid:
       title: ORCID
       description: Open Researcher and Contributor ID.
@@ -1243,6 +1328,12 @@ components:
       required: true
       schema:
         '$ref': '#/components/schemas/resourceId'
+    callIdFilter:
+      name: call
+      description: The ID of the research call to filter results by.
+      in: query
+      schema:
+        '$ref': '#/components/schemas/callId'
     programId:
       name: programId
       description: Research program ID.
@@ -1269,6 +1360,13 @@ components:
       in: query
       schema:
         '$ref': '#/components/schemas/awardId'
+    callId:
+      name: callId
+      description: Research call ID
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/callId'
     journalId:
       name: journalId
       description: Journal ID.
@@ -1389,6 +1487,12 @@ components:
             type: array
             items:
               '$ref': '#/components/schemas/awardReference'
+    200OKCall:
+      description: A research call
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/call'
     200OKJournal:
       description: A journal.
       content:
