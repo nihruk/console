@@ -14,7 +14,7 @@ Visit https://ioda.vercel.app/ to view the latest stable documentation.
 Run `npm run docs` in a Git clone to see the absolute latest documentation of the checked out version.
 
 ## Development
-RUn `npm install`.
+Run `npm install`.
 
 ### QA
 Run `npm run test`.
