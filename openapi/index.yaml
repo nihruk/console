@@ -742,13 +742,15 @@ components:
         start:
           title: Start date
           description: The date the research started.
-          type: full-date
+          type: string
+          format: date
           examples:
             - 1970-01-01
         end:
           title: End date
           description: The date the research ended.
-          type: full-date
+          type: string
+          format: date
           examples:
             - 2000-01-01
         funding:
@@ -808,13 +810,15 @@ components:
         start:
           title: Start date
           description: The date the call opened.
-          type: full-date
+          type: string
+          format: date
           examples:
             - 1970-01-01
         end:
           title: End date
           description: The date the call closed.
-          type: full-date
+          type: string
+          format: date
           examples:
             - 2000-01-01
         programStream:
