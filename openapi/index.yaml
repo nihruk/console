@@ -10,10 +10,10 @@ servers:
   - url: 'https://example.com'
     description: Live API.
 paths:
-  '/resource':
+  '/resources':
     get:
       tags:
-        - Resource
+        - Resources
       description: Get a collection of resources.
       responses:
         '200':
@@ -34,7 +34,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/resource/{resourceId}':
+  '/resources/{resourceId}':
     get:
       tags:
         - Resource
@@ -62,10 +62,10 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/resourceId'
-  '/programme/':
+  '/programmes/':
     get:
       tags:
-        - Research programme
+        - Research programmes
       summary: Get a collection of research programmes
       responses:
         '200':
@@ -86,7 +86,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/programme/{programmeId}':
+  '/programmes/{programmeId}':
     get:
       tags:
         - Research programme
@@ -114,11 +114,11 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/programmeId'
-  '/award':
+  '/awards':
     get:
       operationId: getAwardCollection
       tags:
-        - Award
+        - Awards
       summary: Get a collection of awards
       responses:
         '200':
@@ -140,15 +140,15 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
-      - '$ref': '#/components/parameters/organizationIdFilter'
+      - '$ref': '#/components/parameters/organisationIdFilter'
         name: manager
       - '$ref': '#/components/parameters/programmeIdFilter'
-      - '$ref': '#/components/parameters/organizationIdFilter'
+      - '$ref': '#/components/parameters/organisationIdFilter'
         name: contractor
       - '$ref': '#/components/parameters/callIdFilter'
       - '$ref': '#/components/parameters/personIdFilter'
         name: people
-  '/award/{awardId}':
+  '/awards/{awardId}':
     get:
       tags:
         - Award
@@ -176,7 +176,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/awardId'
-  '/call/{callId}':
+  '/calls/{callId}':
     get:
       tags:
         - Call
@@ -204,10 +204,10 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/callId'
-  '/journal':
+  '/journals':
     get:
       tags:
-        - Journal
+        - Journals
       summary: Get a collection of journals
       responses:
         '200':
@@ -228,7 +228,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/journal/{journalId}':
+  '/journals/{journalId}':
     get:
       tags:
         - Journal
@@ -256,11 +256,11 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/journalId'
-  '/volume':
+  '/volumes':
     get:
       operationId: getVolumeCollection
       tags:
-        - Volume
+        - Volumes
       summary: Get a collection of volumes
       responses:
         '200':
@@ -283,7 +283,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/journalIdFilter'
-  '/volume/{volumeId}':
+  '/volumes/{volumeId}':
     get:
       tags:
         - Volume
@@ -311,11 +311,11 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/volumeId'
-  '/publication':
+  '/publications':
     get:
       operationId: getPublicationCollection
       tags:
-        - Publication
+        - Publications
       summary: Get a collection of publications
       responses:
         '200':
@@ -340,7 +340,7 @@ paths:
       - '$ref': '#/components/parameters/awardIdFilter'
       - '$ref': '#/components/parameters/journalIdFilter'
       - '$ref': '#/components/parameters/volumeIdFilter'
-  '/publication/{publicationId}':
+  '/publications/{publicationId}':
     get:
       tags:
         - Publication
@@ -368,10 +368,10 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/publicationId'
-  '/person':
+  '/persons':
     get:
       tags:
-        - Person
+        - Persons
       summary: Get a collection of people
       responses:
         '200':
@@ -392,7 +392,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/person/{personId}':
+  '/persons/{personId}':
     get:
       tags:
         - Person
@@ -420,14 +420,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/personId'
-  '/organization':
+  '/organisations':
     get:
       tags:
-        - Organization
-      summary: Get a collection of organizations.
+        - Organisations
+      summary: Get a collection of organisations.
       responses:
         '200':
-          '$ref': '#/components/responses/200OKOrganizationCollection'
+          '$ref': '#/components/responses/200OKOrganisationCollection'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -444,14 +444,14 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/organization/{organizationId}':
+  '/organisations/{organisationId}':
     get:
       tags:
-        - Organization
-      summary: Get an organization
+        - Organisation
+      summary: Get an organisation
       responses:
         '200':
-          '$ref': '#/components/responses/200OKOrganization'
+          '$ref': '#/components/responses/200OKOrganisation'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '404':
@@ -471,11 +471,11 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
-      - '$ref': '#/components/parameters/organizationId'
-  '/user':
+      - '$ref': '#/components/parameters/organisationId'
+  '/users':
     get:
       tags:
-        - User
+        - Users
       summary: Get a collection of users
       responses:
         '200':
@@ -538,7 +538,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
         - ioda: []
-  '/user/{userId}':
+  '/users/{userId}':
     get:
       tags:
         - User
@@ -692,16 +692,16 @@ components:
         - type
         - uri
       additionalProperties: false
-    organization:
+    organisation:
       type: object
       properties:
         id:
-          '$ref': '#/components/schemas/organizationId'
+          '$ref': '#/components/schemas/organisationId'
         name:
           type: string
           minLength: 1
           maxLength: 255
-          description: The organization's human-readable name.
+          description: The organisation's human-readable name.
           examples:
             - University of Southampton
         address:
@@ -712,7 +712,7 @@ components:
       additionalProperties: false
     programme:
       type: object
-      title: Program
+      title: Programme
       description: A research programme.
       properties:
         id:
@@ -765,13 +765,13 @@ components:
           type: string
           format: uri
         manager:
-          '$ref': '#/components/schemas/organizationReference'
+          '$ref': '#/components/schemas/organisationReference'
         call:
           '$ref': '#/components/schemas/callReference'
         programme:
           '$ref': '#/components/schemas/programmeReference'
         contractor:
-          '$ref': '#/components/schemas/organizationReference'
+          '$ref': '#/components/schemas/organisationReference'
         isrctn:
           '$ref': '#/components/schemas/isrctn'
         prospero:
@@ -1149,7 +1149,7 @@ components:
     credit:
       description: A [Contributor Roles Taxonomy](https://credit.niso.org/) (CRediT) role that describes a contributor's involvement.
       enum:
-        - conceptualization
+        - conceptualisation
         - data-curation
         - formal-analysis
         - funding-acquisition
@@ -1160,25 +1160,25 @@ components:
         - software
         - supervision
         - validation
-        - visualization
+        - visualisation
         - writing-original-draft
         - writing-review-editing
     institutionId:
       title: Institution ID
       description: An institution ID.
-    organizationId:
-      title: Organization ID
-      description: An organization ID.
+    organisationId:
+      title: Organisation ID
+      description: An organisation ID.
       type: string
       minLength: 1
       maxLength: 255
-    organizationReference:
-      title: Organization reference
-      description: The relative URL of the endpoint to call to retrieve this organization.
+    organisationReference:
+      title: Organisation reference
+      description: The relative URL of the endpoint to call to retrieve this organisation.
       type: string
       format: uri
       examples:
-        - /organization/123
+        - /organisation/123
     userId:
       title: User ID
       '$ref': '#/components/schemas/uuidV4'
@@ -1455,19 +1455,19 @@ components:
       in: query
       schema:
         '$ref': '#/components/schemas/personId'
-    organizationId:
-      name: organizationId
-      description: Organization ID.
+    organisationId:
+      name: organisationId
+      description: Organisation ID.
       in: path
       required: true
       schema:
-        '$ref': '#/components/schemas/organizationId'
-    organizationIdFilter:
-      name: organization
-      description: Organization ID.
+        '$ref': '#/components/schemas/organisationId'
+    organisationIdFilter:
+      name: organisation
+      description: Organisation ID.
       in: query
       schema:
-        '$ref': '#/components/schemas/organizationId'
+        '$ref': '#/components/schemas/organisationId'
     userId:
       name: userId
       description: User ID.
@@ -1590,12 +1590,12 @@ components:
             type: array
             items:
               '$ref': '#/components/schemas/personReference'
-    200OKOrganization:
-      description: An organization.
+    200OKOrganisation:
+      description: An organisation.
       content:
         application/json:
           schema:
-            '$ref': '#/components/schemas/organization'
+            '$ref': '#/components/schemas/organisation'
       links:
         contractedAwards:
           operationId: getAwardCollection
@@ -1605,14 +1605,14 @@ components:
           operationId: getAwardCollection
           parameters:
             manager: '$response.body#/id'
-    200OKOrganizationCollection:
-      description: A collection of organizations.
+    200OKOrganisationCollection:
+      description: A collection of organisations.
       content:
         application/json:
           schema:
             type: array
             items:
-              '$ref': '#/components/schemas/organizationReference'
+              '$ref': '#/components/schemas/organisationReference'
     200OKUser:
       description: A user.
       content:
