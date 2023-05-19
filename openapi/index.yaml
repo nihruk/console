@@ -7,8 +7,8 @@ info:
     href: https://nihr.ac.uk
     backgroundColor: '#ffffff'
 servers:
-  - url: 'https://example.com'
-    description: Live API.
+  - url: 'https://ioda.vercel.app'
+    description: Live API specification.
 paths:
   '/resource':
     get:
