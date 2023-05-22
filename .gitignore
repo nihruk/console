@@ -2,7 +2,7 @@
 /package-lock.json
 .vercel
 .idea
-.env
+
 
 ###> symfony/framework-bundle ###
 /.env.local
