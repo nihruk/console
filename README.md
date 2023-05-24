@@ -15,21 +15,25 @@ The specification is kept in `./openapi/index.yaml`, and follows OpenAPI 3.1, al
 
 - Run `npm run docs` in a Git clone to see the absolute latest documentation of the checked out version.
 
-### Development
-Run `npm install`.
-
-#### QA
-Run `npm run test`.
-
 ## The IODA Web Application
 This is currently a bare bones symfony project
 
+## Development
 ### System Requirements
 - php >= 8.1.*
-- composer
+- Composer
+- Node.js/npm
+
 
 ### Usage Instructions
 - clone this repository
 - if you don't have it, install composer from https://getcomposer.org/
-- navigate to the cloned project folder 
+- navigate to the cloned project folder
 - run `composer install`
+- run `npm install`
+
+#### QA
+Run `npm run test`
+
+
+
