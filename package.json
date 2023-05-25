@@ -17,12 +17,13 @@
   },
   "homepage": "https://github.com/nihruk/ioda#readme",
   "scripts": {
-    "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ./openapi/'",
-    "test-ioda-specification": "node test-ioda-specification.js",
-    "test": "npm run test-ioda-specification"
+    "start": "nodemon ioda-specification",
+    "test": "node test-ioda-specification"
   },
   "dependencies": {
-    "http-server": "^14.1.1"
+    "express": "^4.18.2",
+    "http-server": "^14.1.1",
+    "nodemon": "^2.0.22"
   },
   "devDependencies": {
     "@readme/openapi-parser": "^2.4.0"

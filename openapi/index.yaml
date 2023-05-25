@@ -641,6 +641,28 @@ paths:
       - '$ref': '#/components/parameters/userId'
 components:
   schemas:
+    metadata:
+      type: object
+      properties:
+        pages:
+          type: object
+          properties:
+            page:
+              type: integer
+              multipleOf: 1
+              minimum: 1
+              examples:
+                - 3
+            per_page:
+              type: integer
+              minimum: 5
+              examples:
+                - 10
+                - 20
+            page_count:
+              type: integer
+              examples:
+                - 6349
     resource:
       type: object
       properties:
@@ -1489,11 +1511,17 @@ components:
     200OKResourceCollection:
       description: A collection of resources
       content:
-        application/json:
+        application/json:              
           schema:
-            type: array
-            items:
-              '$ref': '#/components/schemas/resource'
+            type: object
+            properties:
+              metadata:
+                type: object
+                '$ref': '#/components/schemas/metadata'
+              data:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/resource'
     200OKProgram:
       description: A research program.
       content:

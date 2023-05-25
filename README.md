@@ -13,7 +13,7 @@ The specification is kept in `./openapi/index.yaml`, and follows OpenAPI 3.1, al
 ### View the API documentation
 - Visit https://ioda.vercel.app/ to view the latest stable documentation.
 
-- Run `npm run docs` in a Git clone to see the absolute latest documentation of the checked out version.
+- Run `npm start` in a Git clone to see the absolute latest documentation of the checked out version.
 
 ## The IODA Web Application
 This is currently a bare bones symfony project
@@ -33,7 +33,7 @@ This is currently a bare bones symfony project
 - run `npm install`
 
 #### QA
-Run `npm run test`
+Run `npm test`
 
 
 
