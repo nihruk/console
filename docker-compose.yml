@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  web:
+    build:
+      dockerfile: php.dockerfile
+      context: .docker
+    volumes:
+      - '${APP_SRC}:/app'
+    ports:
+      - "${WEB_PORT}:80"
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - ACCEPT_EULA=Y
+      - "SA_PASSWORD=${SA_PASSWORD}"
+    ports:
+      - "${DB_PORT}:1433"
