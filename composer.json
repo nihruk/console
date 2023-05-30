@@ -14,8 +14,6 @@
         "symfony/runtime": "6.2.*",
         "symfony/yaml": "6.2.*"
     },
-    "require-dev": {
-    },
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
@@ -43,6 +41,9 @@
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*"
     },
+    "scripts-descriptions": {
+        "tests": "Run all tests"
+    },
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
@@ -53,7 +54,13 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "tests": [
+            "@psalm",
+            "@phpstan"
+        ],
+        "psalm": "./vendor/bin/psalm --no-cache",
+        "phpstan": "./vendor/bin/phpstan analyse src"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -63,5 +70,9 @@
             "allow-contrib": false,
             "require": "6.2.*"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "vimeo/psalm": "^5.12"
     }
 }
