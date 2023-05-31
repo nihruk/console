@@ -49,12 +49,12 @@ jobs:
 
       - name: Run unit tests
         run: |
-          php vendor/bin/phpunit --testsuite unit
+          php ./vendor/bin/phpunit --testsuite unit
         shell: bash
 
       - name: Run integration tests
         run: |
-          php vendor/bin/phpunit --testsuite integration
+          php ./vendor/bin/phpunit --testsuite integration
         shell: bash
 
 
