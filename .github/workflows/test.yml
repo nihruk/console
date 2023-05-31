@@ -42,7 +42,20 @@ jobs:
           npm install
         shell: bash
 
-      - name: Run the tests
+      - name: Run the documentation tests
         run: |
           npm run test
         shell: bash
+
+      - name: Run unit tests
+        run: |
+          bin/phpunit --testsuite unit
+        shell: bash
+
+      - name: Run integration tests
+        run: |
+          bin/phpunit --testsuite integration
+        shell: bash
+
+
+
