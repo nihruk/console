@@ -42,6 +42,11 @@ jobs:
           npm install
         shell: bash
 
+      - name: Install symfony dependencies
+        run: |
+          composer install
+        shell: bash
+
       - name: Run the documentation tests
         run: |
           npm run test
