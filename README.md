@@ -33,7 +33,11 @@ This is currently a bare bones symfony project
 - run `npm install`
 
 #### QA
-Run `npm run test`
-
+- To run tests against IODA documentation, run `npm run test`
+- To run all available phpUnit tests against the IODA application, run `bin/phpunit`
+- To run unit tests against the IODA application, run:  
+  `bin/phpunit --testsuite unit`
+- To run integration tests against the IODA application, run:  
+  `bin/phpunit --testsuite integration`
 
 
