@@ -43,7 +43,7 @@
         }
     },
     "scripts-descriptions": {
-        "tests": "Run all tests"
+        "tests": "Run static tests"
     },
 
 
