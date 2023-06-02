@@ -34,11 +34,11 @@ This is currently a bare bones symfony project
 
 #### QA
 - To run tests against IODA documentation, run `npm run test`
-- To run all available phpUnit tests against the IODA application, run `bin/phpunit`
+- To run all available phpUnit tests against the IODA application, run `vendor/bin/phpunit`
 - To run unit tests against the IODA application, run:  
-  `bin/phpunit --testsuite unit`
+  `vendor/bin/phpunit --testsuite unit`
 - To run integration tests against the IODA application, run:  
-  `bin/phpunit --testsuite integration`
+  `vendor/bin/phpunit --testsuite integration`
 - To run Psalm against the IODA application, run:  
     `./vendor/bin/psalm`
 
