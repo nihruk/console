@@ -62,8 +62,6 @@ jobs:
           php ./vendor/bin/phpunit --testsuite integration
         shell: bash
 
-      - name: Run Psalm
-        run: |
-          php ./vendor/bin/psalm
-        shell: bash
+      - name: Run static tests
+        run: composer run tests
 
