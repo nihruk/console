@@ -72,7 +72,7 @@
             "@phpstan"
         ],
         "psalm": "./vendor/bin/psalm --no-cache",
-        "phpstan": "./vendor/bin/phpstan analyse src"
+        "phpstan": "./vendor/bin/phpstan analyse"
 
 
     },
