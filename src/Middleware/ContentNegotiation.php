@@ -45,17 +45,17 @@ class ContentNegotiation implements EventSubscriberInterface
 
             $namedArguments = $event->getRequest()->headers->get('Accept');
             // var_dump($response);
-            $this->logger->info(json_encode($namedArguments));
+            $this->logger->info((string)json_encode($namedArguments));
             $request = $event->getRequest();
             $format = $request->get('_format');
 
-            $this->logger->info(json_encode($format));
+            $this->logger->info((string)json_encode($format));
             
             $request->headers->set('Accept', 'application/json');
             if ($format == null) {
                 $accepts = $request->getAcceptableContentTypes();
 
-                $this->logger->info(json_encode($accepts));
+                $this->logger->info((string)json_encode($accepts));
 
                 foreach ($accepts as $accept) {
                     $format = $request->getFormat($accept);
@@ -72,7 +72,7 @@ class ContentNegotiation implements EventSubscriberInterface
             
         }
     }
-    public function onKernelResponse(ResponseEvent $event)
+    public function onKernelResponse(ResponseEvent $event): void
     {
         $response = $event->getResponse();
         $response->headers->set("Content-Type", "application/json");
