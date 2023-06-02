@@ -19,11 +19,11 @@ class RequestListener
     {
         $request = $event->getRequest();
         $accepts = $request->getAcceptableContentTypes();
-        $this->logger->info(json_encode($accepts));
+        $this->logger->info((string)json_encode($accepts));
         $request->headers->set("Accept" , "application/json");
         
         $accepts = $request->getAcceptableContentTypes();
-        $this->logger->info(json_encode($accepts));
+        $this->logger->info((string)json_encode($accepts));
         // $this->logger->info($request);
        
     }
