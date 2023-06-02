@@ -15,5 +15,14 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    
+    # Register EventListener onKernelResponse
+    # App\EventListener\RequestListener:
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+    #         - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    App\MiddleWare\ContentNegotiation:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
 
 
