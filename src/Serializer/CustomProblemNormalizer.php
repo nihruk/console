@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class CustomProblemNormalizer implements NormalizerInterface
 {
     /**
-     * @param array<int, string> $context
+     * @param array<array-key, mixed> $context
      * @return array<string, array<string, mixed>|string>
      */
     public function normalize($object, string $format = null, array $context = []): array
