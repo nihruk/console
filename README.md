@@ -39,7 +39,7 @@ This is currently a bare bones symfony project
   `bin/phpunit --testsuite unit`
 - To run integration tests against the IODA application, run:  
   `bin/phpunit --testsuite integration`
-- - To run Psalm against the IODA application, run:  
-    `bin/phpunit --testsuite integration`
+- To run Psalm against the IODA application, run:  
+    `./vendor/bin/psalm`
 
 
