@@ -30,16 +30,8 @@ This is currently a bare bones symfony project
 - if you don't have it, install composer from https://getcomposer.org/
 - navigate to the cloned project folder
 - run `composer install`
-- run `npm install`
 
-#### QA
-- To run tests against IODA documentation, run `npm run test`
-- To run all available phpUnit tests against the IODA application, run `vendor/bin/phpunit`
-- To run unit tests against the IODA application, run:  
-  `vendor/bin/phpunit --testsuite unit`
-- To run integration tests against the IODA application, run:  
-  `vendor/bin/phpunit --testsuite integration`
-- To run Psalm against the IODA application, run:  
-    `./vendor/bin/psalm`
+#### Testing
+Run `composer run test`.
 
 

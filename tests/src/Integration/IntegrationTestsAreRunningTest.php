@@ -8,6 +8,6 @@ class IntegrationTestsAreRunningTest extends TestCase
 {
     public function testIntegrationTestRanOk(): void
     {
-        $this->assertTrue(true,'integration tests running');
+        $this->assertTrue(true, 'integration tests running');
     }
 }
