@@ -19,12 +19,14 @@
   "scripts": {
     "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ./openapi/'",
     "test-ioda-specification": "node test-ioda-specification.js",
-    "test": "npm run test-ioda-specification"
+    "test": "npm run test-ioda-specification",
+    "prepare": "husky install"
   },
   "dependencies": {
     "http-server": "^14.1.1"
   },
   "devDependencies": {
-    "@readme/openapi-parser": "^2.4.0"
+    "@readme/openapi-parser": "^2.4.0",
+    "husky": "^8.0.0"
   }
 }
