@@ -69,12 +69,14 @@
         ],
         "tests": [
             "@psalm",
-            "@phpstan"
+            "@phpstan",
+            "@test-phpunit-integration",
+            "@test-phpunit-unit"
         ],
         "psalm": "./vendor/bin/psalm --no-cache",
-        "phpstan": "./vendor/bin/phpstan analyse"
-
-
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "test-phpunit-unit": "./vendor/bin/phpunit --testsuite unit",
+        "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration"
     },
     "conflict": {
         "symfony/symfony": "*"
