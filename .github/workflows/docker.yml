@@ -1,0 +1,27 @@
+name: Docker build and test
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the source code
+        uses: actions/checkout@v3
+
+      - name: build and the docker container
+        run: |
+          docker compose up --build -d
+        shell: bash
+
