@@ -25,3 +25,7 @@ jobs:
           docker compose up --build -d
         shell: bash
 
+      - name: run tests
+        run: |
+          docker exec -d ioda-php-1 composer run tests
+        shell: bash
