@@ -6,8 +6,8 @@ COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 COPY composer.json composer.lock symfony.lock  ./
 
 # install the symfony cli
-RUN wget https://get.symfony.com/cli/installer -O - | bash
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony #this is v5 of the symphony cli, not symfony
 
 # install php extensions
 RUN apt-get update
@@ -19,4 +19,4 @@ RUN composer install --no-scripts
 #RUN ["bin/console cache:clear"]
 
 # start the symfony binary webserver
-CMD  ["symfony", "local:server:start" , "--port=8000", "--no-tls"]
+CMD  ["symfony", "local:server:start" , "--port=8000"]
