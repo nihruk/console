@@ -31,10 +31,11 @@ class RequestListener
         $this->acceptable = array("text/html", "application/json");
     }
 
-    private function json_validator(mixed $data):bool {
+    private function jsonValidator(mixed $data): bool
+    {
         if (!empty($data)) {
-            return is_string($data) && 
-              is_array(json_decode($data, true)) ? true : false;
+            return is_string($data) &&
+                is_array(json_decode($data, true)) ? true : false;
         }
         return false;
     }
@@ -65,7 +66,7 @@ class RequestListener
         if (empty($intersect)) {
             throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
         } else {
-            $isJson = $this->json_validator($content);
+            $isJson = $this->jsonValidator($content);
             if ($isJson && empty($interJson)) {
                 throw new NotAcceptableHttpException("Content mismatch, please add 'json/application' Accept header!");
             }
