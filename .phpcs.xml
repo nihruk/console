@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ruleset name="IODA" namespace="nihr/ioda">
+    <description>The IODA coding standard</description>
+    <file>src</file>
+    <file>tests/src</file>
+    <rule ref="PSR12"/>
+</ruleset>

@@ -37,31 +37,9 @@ jobs:
           restore-keys: |
             npm-
 
-      - name: Install npm dependencies
-        run: |
-          npm install
-        shell: bash
+      - name: Install dependencies
+        run: composer install
 
-      - name: Install symfony dependencies
-        run: |
-          composer install
-        shell: bash
-
-      - name: Run the documentation tests
-        run: |
-          npm run test
-        shell: bash
-
-      - name: Run unit tests
-        run: |
-          php ./vendor/bin/phpunit --testsuite unit
-        shell: bash
-
-      - name: Run integration tests
-        run: |
-          php ./vendor/bin/phpunit --testsuite integration
-        shell: bash
-
-      - name: Run static tests
-        run: composer run tests
+      - name: Run tests
+        run: composer run test
 
