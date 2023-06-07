@@ -30,11 +30,21 @@ class ContentNegotiationController extends AbstractController
         return $this->json($data);
     }
 
+    #[Route('/pirates/text', name: 'pirates_text', methods: ["GET"])]
+    public function boo(): Response
+    {
+
+        $textResponse = new Response("Pirates!", 200);
+        $textResponse->headers->set('Content-Type', 'text/plain');
+
+        return $textResponse;
+    }
+
     #[Route('/five-hundred', name: 'five_index', methods: ["POST"])]
     public function fiveHundred(): Response
     {
         $tangerine = "mandarins";
-        
+
         throw new Tangerine($tangerine);
     }
 }

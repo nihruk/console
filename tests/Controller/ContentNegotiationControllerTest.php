@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ContentNegotiationControllerTest extends WebTestCase
 {
 
-    public function testCorrectResponse(): void
+    public function testJsonResponse(): void
     {
         $client = static::createClient();
         $client->request(
@@ -20,6 +20,23 @@ class ContentNegotiationControllerTest extends WebTestCase
             ]
         );
         $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('Content-Type', 'application/json');
+    }
+
+    public function testMismatchResponse(): void
+    {
+        $client = static::createClient();
+        $client->request(
+            'GET',
+            '/api/pirates/text',
+            [],
+            [],
+            [
+                'HTTP_ACCEPT' => "application/json"
+            ]
+        );
+        $response = $client->getResponse();
+        $this->assertSame(406, $response->getStatusCode());
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
     }
 
@@ -38,7 +55,7 @@ class ContentNegotiationControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertResponseHeaderNotSame('Content-Type', 'text/xml');
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
-        $this->assertSame(403, $response->getStatusCode());
+        $this->assertSame(406, $response->getStatusCode());
         $this->assertJson((string)$response->getContent());
     }
 

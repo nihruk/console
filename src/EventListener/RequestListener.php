@@ -31,6 +31,14 @@ class RequestListener
         $this->acceptable = array("text/html", "application/json");
     }
 
+    private function json_validator(mixed $data):bool {
+        if (!empty($data)) {
+            return is_string($data) && 
+              is_array(json_decode($data, true)) ? true : false;
+        }
+        return false;
+    }
+
     public function onKernelRequest(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
@@ -40,7 +48,7 @@ class RequestListener
         $accept = $request->headers->get("Accept");
         $this->logger->info((string)json_encode($this->accepts));
         $intersect = array_intersect($this->acceptable, explode(",", (string)$accept));
-        $this->accepts = !empty($intersect) ? $accept : $this->accepts;
+        $this->accepts = preg_replace('/\s+/', '', !empty($intersect) ? (string)$accept : (string)$this->accepts);
     }
 
     public function onKernelResponse(ResponseEvent $event): void
@@ -49,11 +57,22 @@ class RequestListener
             return;
         }
         $response = $event->getResponse();
-        if ($this->accepts !== "") {
-            $response->headers->set("Content-Type", $this->accepts);
-        } else {
-            $accept_string = implode(', ', $this->acceptable);
+        $accept_string = implode(', ', $this->acceptable);
+        $content = $response->getContent();
+        $intersect = array_intersect($this->acceptable, explode(",", (string)$this->accepts));
+        $interText = array_intersect(["text/html"], explode(",", (string)$this->accepts));
+        $interJson = array_intersect(["application/json"], explode(",", (string)$this->accepts));
+        if (empty($intersect)) {
             throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
+        } else {
+            $isJson = $this->json_validator($content);
+            if ($isJson && empty($interJson)) {
+                throw new NotAcceptableHttpException("Content mismatch, please add 'json/application' Accept header!");
+            }
+            if (!$isJson && empty($interText)) {
+                throw new NotAcceptableHttpException("Content mismatch, please add 'text/html' Accept header!");
+            }
+            return;
         }
     }
 
