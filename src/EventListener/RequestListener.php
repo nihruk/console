@@ -6,7 +6,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Psr\Log\LoggerInterface;
@@ -53,7 +53,7 @@ class RequestListener
             $response->headers->set("Content-Type", $this->accepts);
         } else {
             $accept_string = implode(', ', $this->acceptable);
-            throw new AccessDeniedHttpException("IODA is only accepting {$accept_string} at present!");
+            throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
         }
     }
 

@@ -16,15 +16,24 @@
     "url": "https://github.com/nihruk/ioda/issues"
   },
   "homepage": "https://github.com/nihruk/ioda#readme",
+  "nodemonConfig": {
+    "verbose": true,
+    "ext": "js,json,php"
+  },
   "scripts": {
     "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ./openapi/'",
     "test-ioda-specification": "node test-ioda-specification.js",
-    "test": "npm run test-ioda-specification"
+    "test": "npm run test-ioda-specification",
+    "watch:psalm": "nodemon --watch ./src/** --exec \"composer run psalm\"",
+    "watch:phpstan": "nodemon --watch ./src/** --exec \"composer run phpstan\"",
+    "watch:phpunit": "nodemon --watch ./src/** --exec \"php ./vendor/bin/phpunit\"",
+    "watch:tests": "nodemon --watch ./src/** --exec \"composer run tests\""
   },
   "dependencies": {
     "http-server": "^14.1.1"
   },
   "devDependencies": {
-    "@readme/openapi-parser": "^2.4.0"
+    "@readme/openapi-parser": "^2.4.0",
+    "nodemon": "^2.0.22"
   }
 }

@@ -33,7 +33,8 @@ class ContentNegotiationController extends AbstractController
     #[Route('/five-hundred', name: 'five_index', methods: ["POST"])]
     public function fiveHundred(): Response
     {
-        $tangerine = "mandarin";
+        $tangerine = "mandarins";
+        
         throw new Tangerine($tangerine);
     }
 }
