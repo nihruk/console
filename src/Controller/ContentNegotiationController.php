@@ -19,9 +19,9 @@ class ContentNegotiationController extends AbstractController
         $names = ["Long John", "Cockle Jim", "Barnacle Bob", "Doubloon Doug", "Seasick Steve"];
         $descriptions = [
             "Can drift for days",
-            "Treasure finder", 
-            "Stuck to the ship", 
-            "A rare gem", 
+            "Treasure finder",
+            "Stuck to the ship",
+            "A rare gem",
             "Always in the drink"
         ];
 

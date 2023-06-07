@@ -27,6 +27,7 @@
     "watch:psalm": "nodemon --watch ./src/** --exec \"composer run psalm\"",
     "watch:phpstan": "nodemon --watch ./src/** --exec \"composer run phpstan\"",
     "watch:phpunit": "nodemon --watch ./src/** --exec \"php ./vendor/bin/phpunit\"",
+    "watch:phpcs": "nodemon --watch ./src/** --exec \"php ./vendor/bin/phpcs\"",
     "watch:tests": "nodemon --watch ./src/** --exec \"composer run tests\""
   },
   "dependencies": {
