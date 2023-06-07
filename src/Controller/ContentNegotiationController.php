@@ -17,7 +17,13 @@ class ContentNegotiationController extends AbstractController
         $data = [];
         $ids = [0, 1, 2, 3, 4];
         $names = ["Long John", "Cockle Jim", "Barnacle Bob", "Doubloon Doug", "Seasick Steve"];
-        $descriptions = ["Can drift for days", "Treasure finder", "Stuck to the ship", "A rare gem", "Always in the drink"];
+        $descriptions = [
+            "Can drift for days",
+            "Treasure finder", 
+            "Stuck to the ship", 
+            "A rare gem", 
+            "Always in the drink"
+        ];
 
         foreach ($ids as $id) {
             $data[] = [
