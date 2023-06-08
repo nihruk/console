@@ -20,12 +20,13 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v3
 
-      - name: build and run the docker container
+      - name: build and test
         run: |
-          docker compose up --build -d
+          docker build -t ioda .
+          docker run -rm ioda composer run test
         shell: bash
 
-      - name: run tests
-        run: |
-          docker exec ioda_php composer run test-phpunit
-        shell: bash
+#      - name: run tests
+#        run: |
+#          docker exec ioda_php composer run test-phpunit
+#        shell: bash
