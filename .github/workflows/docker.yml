@@ -23,7 +23,7 @@ jobs:
       - name: build and test
         run: |
           docker build -t ioda .
-          docker run -rm ioda composer run test
+          docker run --rm ioda composer run test
         shell: bash
 
 #      - name: run tests
