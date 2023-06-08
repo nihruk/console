@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -46,9 +47,9 @@ class RequestListener
             return;
         }
         $request = $event->getRequest();
-        $accept = $request->headers->get("Accept");
-        $this->logger->info((string)json_encode($this->accepts));
-        $intersect = array_intersect($this->acceptable, explode(",", (string)$accept));
+        $accept = AcceptHeader::fromString($request->headers->get('Accept'));
+        $this->logger->info((string)json_encode($accept));
+        $intersect = array_intersect($this->acceptable, explode(",", $accept->__toString()));
         $this->accepts = preg_replace('/\s+/', '', !empty($intersect) ? (string)$accept : (string)$this->accepts);
     }
 
@@ -60,17 +61,25 @@ class RequestListener
         $response = $event->getResponse();
         $accept_string = implode(', ', $this->acceptable);
         $content = $response->getContent();
-        $intersect = array_intersect($this->acceptable, explode(",", (string)$this->accepts));
-        $interText = array_intersect(["text/html"], explode(",", (string)$this->accepts));
-        $interJson = array_intersect(["application/json"], explode(",", (string)$this->accepts));
+        $acceptHeader = AcceptHeader::fromString((string)$this->accepts);
+        $haystack = explode(",", (string)$this->accepts);
+        foreach ($haystack as &$str) {
+            $str = str_replace('\\', '', $str);
+            $str = str_replace('/', '', $str);
+        }
+        $intersect  = preg_grep('/^/', $haystack);
+        $interText  = $acceptHeader->has('text/html');
+        $interJson  = $acceptHeader->has('application/json');
+
         if (empty($intersect)) {
             throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
         } else {
             $isJson = $this->jsonValidator($content);
-            if ($isJson && empty($interJson)) {
-                throw new NotAcceptableHttpException("Content mismatch, please add 'json/application' Accept header!");
+            if ($isJson && !$interJson) {
+                // return;
+                throw new NotAcceptableHttpException("Content mismatch, add 'json/application' Accept header!");
             }
-            if (!$isJson && empty($interText)) {
+            if (!$isJson && !$interText) {
                 throw new NotAcceptableHttpException("Content mismatch, please add 'text/html' Accept header!");
             }
             return;
