@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   php:
+    container_name: ioda_php
     build: # we are specifying the version in the Dockerfile
       context: .
       dockerfile: Dockerfile
