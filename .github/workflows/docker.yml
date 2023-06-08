@@ -18,10 +18,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      app:
-        image: ioda_php
-
     steps:
       - name: Check out the source code
         uses: actions/checkout@v3
@@ -33,5 +29,5 @@ jobs:
 
       - name: run tests
         run: |
-          docker exec -T ioda-php composer run test
+          docker exec -T ioda_php composer run test
         shell: bash
