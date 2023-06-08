@@ -18,6 +18,7 @@
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.18.4",
+        "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/maker-bundle": "^1.48",
@@ -39,14 +40,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/src"
         }
     },
-    "scripts-descriptions": {
-        "tests": "Run static tests"
-    },
-
-
     "replace": {
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
@@ -62,21 +58,34 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "npm install"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "npm update"
         ],
-        "tests": [
-            "@psalm",
-            "@phpstan",
-            "@test-phpunit-integration",
-            "@test-phpunit-unit"
+        "test": [
+            "@test-psalm",
+            "@test-phpstan",
+            "@test-phpcs",
+            "@test-openapi",
+            "@test-phpunit"
         ],
-        "psalm": "./vendor/bin/psalm --no-cache",
-        "phpstan": "./vendor/bin/phpstan analyse",
+        "test-psalm": "./vendor/bin/psalm --no-cache",
+        "test-phpstan": "./vendor/bin/phpstan analyse",
+        "test-phpcs": "./vendor/bin/phpcs",
+        "test-openapi": "npm run test",
+        "test-phpunit": [
+            "@test-phpunit-unit",
+            "@test-phpunit-integration"
+        ],
         "test-phpunit-unit": "./vendor/bin/phpunit --testsuite unit",
-        "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration"
+        "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration",
+        "fix": [
+            "@fix-phpcbf"
+        ],
+        "fix-phpcbf": "./vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"
