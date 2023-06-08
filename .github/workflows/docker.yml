@@ -22,7 +22,7 @@ jobs:
 
       - name: build and run the docker container
         run: |
-          docker compose up --build
+          docker compose up --build -d
         shell: bash
 
       - name: run tests
