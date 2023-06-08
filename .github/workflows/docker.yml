@@ -12,21 +12,26 @@ on:
     tags:
       - '*'
 
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      app:
+        image: ioda_php
 
     steps:
       - name: Check out the source code
         uses: actions/checkout@v3
 
-      - name: build and test
+      - name: build and run the docker container
         run: |
-          docker build -t ioda .
-          docker run --rm ioda composer run test
+          docker compose up -d
         shell: bash
 
-#      - name: run tests
-#        run: |
-#          docker exec ioda_php composer run test-phpunit
-#        shell: bash
+      - name: run tests
+        run: |
+          docker exec -T ioda-php-1 composer run test
+        shell: bash
