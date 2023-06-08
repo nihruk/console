@@ -33,5 +33,5 @@ jobs:
 
       - name: run tests
         run: |
-          docker exec -T ioda-php-1 composer run test
+          docker exec -T ioda-php composer run test
         shell: bash
