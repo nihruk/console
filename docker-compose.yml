@@ -9,4 +9,3 @@ services:
     working_dir: /var/www/html
     ports:
       - "8000:8000"
-

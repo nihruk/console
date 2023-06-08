@@ -4,7 +4,7 @@ FROM php:8.1-fpm
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
 # these files are needed at build time so copy them now
-COPY composer.json composer.lock symfony.lock ./
+COPY composer.json composer.lock symfony.lock docker_start.sh ./
 
 # install the symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash
@@ -18,5 +18,5 @@ RUN docker-php-ext-install zip
 # install dependencies with composer, use noscripts flag to prevent the cache clearing causing falure
 RUN composer install --no-scripts
 
-# start the symfony webserver and clear the cache
-CMD ["./docker_start.sh"]
+# run a bash script to clear the cache
+RUN ./docker_start.sh
