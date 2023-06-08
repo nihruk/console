@@ -59,24 +59,18 @@ class RequestListener
             return;
         }
         $response = $event->getResponse();
-        $accept_string = implode(', ', $this->acceptable);
         $content = $response->getContent();
+        $accept_string = implode(', ', $this->acceptable);
         $acceptHeader = AcceptHeader::fromString((string)$this->accepts);
-        $haystack = explode(",", (string)$this->accepts);
-        foreach ($haystack as &$str) {
-            $str = str_replace('\\', '', $str);
-            $str = str_replace('/', '', $str);
-        }
-        $intersect  = preg_grep('/^/', $haystack);
         $interText  = $acceptHeader->has('text/html');
         $interJson  = $acceptHeader->has('application/json');
+        $intersect  = $interText || $interJson;
 
-        if (empty($intersect)) {
+        if (!$intersect) {
             throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
         } else {
             $isJson = $this->jsonValidator($content);
             if ($isJson && !$interJson) {
-                // return;
                 throw new NotAcceptableHttpException("Content mismatch, add 'json/application' Accept header!");
             }
             if (!$isJson && !$interText) {
