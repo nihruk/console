@@ -22,4 +22,4 @@ RUN docker-php-ext-install zip
 RUN composer install --no-scripts
 
 # run a bash script to clear the cache
-RUN docker_start.sh
+RUN ./docker_start.sh
