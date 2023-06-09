@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www/html
+      - ./bin:/var/www/html/bin
     working_dir: /var/www/html
     ports:
       - "8000:8000"

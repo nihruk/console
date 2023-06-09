@@ -19,7 +19,7 @@ RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 
 # install dependencies with composer, use noscripts flag to prevent the cache clearing causing falure
-RUN composer install --no-scripts
+RUN composer install #--no-scripts
 
 # run a bash script to clear the cache
-RUN ./docker_start.sh
+#RUN ./docker_start.sh
