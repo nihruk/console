@@ -72,7 +72,7 @@
             "@test-openapi",
             "@test-phpunit"
         ],
-        "test-psalm": "./vendor/bin/psalm --no-cache",
+        "test-psalm": "vendor/bin/psalm --no-cache",
         "test-phpstan": "./vendor/bin/phpstan analyse",
         "test-phpcs": "./vendor/bin/phpcs",
         "test-openapi": "npm run test",
