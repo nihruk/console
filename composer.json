@@ -65,6 +65,12 @@
             "@auto-scripts",
             "npm update"
         ],
+        "docker_test": [
+            "@test-psalm",
+            "@test-phpstan",
+            "@test-phpcs",
+            "@test-phpunit"
+        ],
         "test": [
             "@test-psalm",
             "@test-phpstan",

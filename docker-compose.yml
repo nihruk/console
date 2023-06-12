@@ -1,13 +1,18 @@
 version: '3.8'
 services:
+
   php:
     container_name: ioda_php
     build: # we are specifying the version in the Dockerfile
       context: .
+      target: php8
       dockerfile: Dockerfile
     volumes:
-      - .:/var/www/html
-      - ./bin:/var/www/html/bin
-    working_dir: /var/www/html
+      - .:/srv/ioda
+      - /bin:/srv/ioda/bin
+    working_dir: /srv/ioda
     ports:
       - "8000:8000"
+
+volumes:
+  IODA:
