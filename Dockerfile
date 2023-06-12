@@ -24,7 +24,7 @@ RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/srv/ioda/vendor/bin/"
+ENV PATH="${PATH}:/srv/ioda/vendor/bin"
 
 # install dependencies with composer, use noscripts flag to prevent the cache clearing causing falure
 RUN composer install --no-scripts
