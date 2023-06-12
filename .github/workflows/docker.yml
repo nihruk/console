@@ -22,20 +22,7 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v3
 
-
-#      - name: build and run the docker container
-#        run: |
-#          docker compose up -d
-#        shell: bash
-
-
       - name: build and run the docker container
-        run: |
-          ./run.sh
+        run: ./run.sh
         shell: bash
 
-
-#      - name: run tests
-#        run: |
-#          docker exec ioda_php composer run test
-#        shell: bash
