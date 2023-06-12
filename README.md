@@ -32,6 +32,6 @@ This is currently a bare bones symfony project
 - run `composer install`
 
 #### Testing
-Run `composer run test`.
+Run `composer run test`
 
 
