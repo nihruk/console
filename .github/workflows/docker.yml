@@ -21,8 +21,7 @@ jobs:
     steps:
       - name: Check out the source code
         uses: actions/checkout@v3
-        with:
-          context: .
+
 
       - name: build and run the docker container
         run: |
