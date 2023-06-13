@@ -9,7 +9,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/srv/ioda
-      - /bin:/srv/ioda/bin
     working_dir: /srv/ioda
     ports:
       - "8000:8000"

@@ -20,18 +20,13 @@ This is currently a bare bones symfony project
 
 ## Development
 ### System Requirements
-- php >= 8.1.*
-- Composer
-- Node.js/npm
+- Docker
+- Bash
 
 
 ### Usage Instructions
-- clone this repository
-- if you don't have it, install composer from https://getcomposer.org/
-- navigate to the cloned project folder
-- run `composer install`
+- Run `./bin/dev-start` to start the development environment
+- Run `./bin/dev-build` to (re)build the IODA application
 
 #### Testing
-Run `composer run test`
-
-
+- Run `./bin/dev-test`
