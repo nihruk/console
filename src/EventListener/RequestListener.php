@@ -68,7 +68,7 @@ class RequestListener
         $acceptCurrStr  = $acceptHeader->__toString();
         $acceptAny  = $acceptText || $acceptJson;
 
-        $this->logger->info((string)json_encode($acceptCurrStr));
+        $this->logger->info((string)json_encode($acceptEmpty));
 
         if (!$acceptAny) {
             if ($acceptCurrStr === "") {
