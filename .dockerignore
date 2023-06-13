@@ -1,9 +1,6 @@
 .github
-openapi
 .dockerignore
 .gitignore
-package-lock.json
-package.json
 readme.md
-test-ioda-specification.js
-node_modules
+
+
