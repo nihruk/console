@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Integration\Controller;
+namespace App\Tests\Web\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ContentNegotiationControllerTest extends WebTestCase
+final class ContentNegotiationControllerTest extends WebTestCase
 {
     public function testJsonResponse(): void
     {

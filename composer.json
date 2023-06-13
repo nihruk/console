@@ -84,9 +84,11 @@
         "test-openapi": "npm run test",
         "test-phpunit": [
             "@test-phpunit-unit",
+            "@test-phpunit-web",
             "@test-phpunit-integration"
         ],
         "test-phpunit-unit": "./vendor/bin/phpunit --testsuite unit",
+        "test-phpunit-web": "./vendor/bin/phpunit --testsuite web",
         "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration",
         "fix": [
             "@fix-phpcbf"
