@@ -49,11 +49,11 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "text/xml"
+                'HTTP_ACCEPT' => "text/html"
             ]
         );
         $response = $client->getResponse();
-        $this->assertResponseHeaderNotSame('Content-Type', 'text/xml');
+        $this->assertResponseHeaderNotSame('Content-Type', 'text/html');
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
         $this->assertSame(406, $response->getStatusCode());
         $this->assertJson((string)$response->getContent());
@@ -93,5 +93,21 @@ class ContentNegotiationControllerTest extends WebTestCase
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
         $this->assertSame(500, $response->getStatusCode());
         $this->assertJson((string)$response->getContent());
+    }
+
+    public function testOpenApi(): void
+    {
+        $client = static::createClient();
+        $client->request(
+            'GET',
+            '/api/doc.json',
+          
+        );
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('Content-Type', 'application/json');
+        $response = $client->getResponse();
+        $this->assertJson((string)$response->getContent());
+        $data = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('openapi', $data);
     }
 }
