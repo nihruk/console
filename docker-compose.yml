@@ -9,12 +9,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/srv/ioda
-      - /bin:/srv/ioda/bin
     working_dir: /srv/ioda
     ports:
       - "8000:8000"
 
 
 
-volumes:
-  ioda:
+#@todo ditch me if it didn't break?
+#volumes:
+#  ioda:
