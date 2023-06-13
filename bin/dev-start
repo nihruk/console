@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+#@todo try docker compose up --build -d
+
+docker compose build
+docker compose up -d
