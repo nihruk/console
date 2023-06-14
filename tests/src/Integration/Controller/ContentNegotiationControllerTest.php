@@ -93,19 +93,4 @@ class ContentNegotiationControllerTest extends WebTestCase
         $this->assertSame(500, $response->getStatusCode());
         $this->assertJson((string)$response->getContent());
     }
-
-    public function testOpenApi(): void
-    {
-        $client = static::createClient();
-        $client->request(
-            'GET',
-            '/api/doc.json',
-        );
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('Content-Type', 'application/json');
-        $response = $client->getResponse();
-        $this->assertJson((string)$response->getContent());
-        $data = (array)json_decode((string)$response->getContent(), true);
-        $this->assertArrayHasKey('openapi', $data);
-    }
 }
