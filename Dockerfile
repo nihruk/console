@@ -1,4 +1,4 @@
-FROM php:8.1-fpm as php8
+FROM php:8.1-fpm as php
 
 WORKDIR /srv/ioda
 

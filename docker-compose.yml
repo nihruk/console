@@ -5,7 +5,7 @@ services:
     container_name: ioda_php
     build: # we are specifying the version in the Dockerfile
       context: .
-      target: php8
+      target: php
       dockerfile: Dockerfile
     volumes:
       - .:/srv/ioda
