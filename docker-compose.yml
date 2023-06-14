@@ -13,8 +13,3 @@ services:
     ports:
       - "8000:8000"
 
-
-
-#@todo ditch me if it didn't break?
-#volumes:
-#  ioda:
