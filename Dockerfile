@@ -15,7 +15,7 @@ RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install zip
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/srv/ioda/vendor/bin"
+
 
 
 
