@@ -5,11 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
 use App\Controller\Tangerine;
 
 #[Route('/api', name: 'api_')]
 class ContentNegotiationController extends AbstractController
 {
+    /**
+     * @OA\Tag(name="Pirates")
+     */
     #[Route('/pirates', name: 'pirates_index', methods: ["GET"])]
     public function bar(): Response
     {
@@ -36,6 +40,9 @@ class ContentNegotiationController extends AbstractController
         return $this->json($data);
     }
 
+    /**
+     * @OA\Tag(name="Pirates")
+     */
     #[Route('/pirates/text', name: 'pirates_text', methods: ["GET"])]
     public function boo(): Response
     {
