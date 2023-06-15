@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\AcceptHeader;
@@ -26,10 +28,10 @@ class RequestListener
     public function __construct(
         private LoggerInterface $logger,
         string $environment,
-        private string|null $accepts = ""
+        private string|null $accepts = ''
     ) {
         $this->environment = $environment;
-        $this->acceptable = array("text/html", "application/json");
+        $this->acceptable = array('text/html', 'application/json');
     }
 
     private function jsonValidator(mixed $data): bool
@@ -49,7 +51,7 @@ class RequestListener
         $request = $event->getRequest();
         $accept = AcceptHeader::fromString($request->headers->get('Accept'));
         $this->logger->info((string)json_encode($accept));
-        $intersect = array_intersect($this->acceptable, explode(",", $accept->__toString()));
+        $intersect = array_intersect($this->acceptable, explode(',', $accept->__toString()));
         $this->accepts = preg_replace('/\s+/', '', !empty($intersect) ? (string)$accept : (string)$this->accepts);
     }
 
@@ -64,24 +66,24 @@ class RequestListener
         $acceptHeader = AcceptHeader::fromString((string)$this->accepts);
         $acceptText  = $acceptHeader->has('text/html');
         $acceptJson  = $acceptHeader->has('application/json');
-        $acceptEmpty  = $acceptHeader->has("");
+        $acceptEmpty  = $acceptHeader->has('');
         $acceptCurrStr  = $acceptHeader->__toString();
         $acceptAny  = $acceptText || $acceptJson;
 
         $this->logger->info((string)json_encode($acceptEmpty));
 
         if (!$acceptAny) {
-            if ($acceptCurrStr === "") {
+            if ($acceptCurrStr === '') {
                 return;
             }
-            throw new NotAcceptableHttpException("IODA is only accepting {$acceptString} at present!");
+            throw new NotAcceptableHttpException('IODA is only accepting ' . $acceptString . ' at present!');
         } else {
             $isJson = $this->jsonValidator($content);
             if ($isJson && !$acceptJson) {
-                throw new NotAcceptableHttpException("Content mismatch, please add 'json/application' Accept header!");
+                throw new NotAcceptableHttpException('Content mismatch, please add \'json/application\' Accept header!');
             }
             if (!$isJson && !$acceptText) {
-                throw new NotAcceptableHttpException("Content mismatch, please add 'text/html' Accept header!");
+                throw new NotAcceptableHttpException('Content mismatch, please add \'text/html\' Accept header!');
             }
             return;
         }
