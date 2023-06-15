@@ -40,9 +40,6 @@ class ContentNegotiationController extends AbstractController
         return $this->json($data);
     }
 
-    /**
-     * @OA\Tag(name="Pirates")
-     */
     #[Route('/pirates/text', name: 'pirates_text', methods: ["GET"])]
     public function boo(): Response
     {
