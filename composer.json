@@ -60,24 +60,20 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts",
-            "npm install"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts",
-            "npm update"
+            "@auto-scripts"
         ],
         "test": [
             "@test-psalm",
             "@test-phpstan",
             "@test-phpcs",
-            "@test-openapi",
             "@test-phpunit"
         ],
         "test-psalm": "./vendor/bin/psalm --no-cache",
         "test-phpstan": "./vendor/bin/phpstan analyse",
         "test-phpcs": "./vendor/bin/phpcs",
-        "test-openapi": "npm run test",
         "test-phpunit": [
             "@test-phpunit-unit",
             "@test-phpunit-integration"
