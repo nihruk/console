@@ -16,6 +16,8 @@ RUN docker-php-ext-install zip
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+ENTRYPOINT ["symfony", "server:start" ]
+
 
 
 
