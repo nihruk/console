@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventListener;
 
 use Symfony\Component\HttpFoundation\AcceptHeader;
@@ -26,10 +28,10 @@ class RequestListener
     public function __construct(
         private LoggerInterface $logger,
         string $environment,
-        private string|null $accepts = ""
+        private string|null $accepts = ''
     ) {
         $this->environment = $environment;
-        $this->acceptable = array("text/html", "application/json");
+        $this->acceptable = array('text/html', 'application/json');
     }
 
     private function jsonValidator(mixed $data): bool
@@ -49,7 +51,7 @@ class RequestListener
         $request = $event->getRequest();
         $accept = AcceptHeader::fromString($request->headers->get('Accept'));
         $this->logger->info((string)json_encode($accept));
-        $intersect = array_intersect($this->acceptable, explode(",", $accept->__toString()));
+        $intersect = array_intersect($this->acceptable, explode(',', $accept->__toString()));
         $this->accepts = preg_replace('/\s+/', '', !empty($intersect) ? (string)$accept : (string)$this->accepts);
     }
 
@@ -67,7 +69,7 @@ class RequestListener
         $intersect  = $interText || $interJson;
 
         if (!$intersect) {
-            throw new NotAcceptableHttpException("IODA is only accepting {$accept_string} at present!");
+            throw new NotAcceptableHttpException('IODA is only accepting ' . $accept_string . ' at present!');
         } else {
             $isJson = $this->jsonValidator($content);
             if ($isJson && !$interJson) {

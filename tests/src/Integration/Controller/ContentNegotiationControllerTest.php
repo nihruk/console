@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Integration\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -15,7 +17,7 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "application/json"
+                'HTTP_ACCEPT' => 'application/json'
             ]
         );
         $this->assertResponseIsSuccessful();
@@ -31,7 +33,7 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "application/json"
+                'HTTP_ACCEPT' => 'application/json'
             ]
         );
         $response = $client->getResponse();
@@ -48,7 +50,7 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "text/xml"
+                'HTTP_ACCEPT' => 'text/xml'
             ]
         );
         $response = $client->getResponse();
@@ -67,7 +69,7 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "application/json"
+                'HTTP_ACCEPT' => 'application/json'
             ]
         );
         $response = $client->getResponse();
@@ -85,7 +87,7 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => "application/json"
+                'HTTP_ACCEPT' => 'application/json'
             ]
         );
         $response = $client->getResponse();
