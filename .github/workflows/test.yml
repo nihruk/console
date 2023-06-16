@@ -37,9 +37,12 @@ jobs:
           restore-keys: |
             npm-
 
-      - name: Install dependencies
-        run: composer install
 
-      - name: Run tests
-        run: composer run test
+      - name: Start the dev environment
+        run: ./bin/dev-start
 
+      - name: Build the application
+        run: ./bin/dev-build
+
+      - name: Test the application
+        run: ./bin/dev-test
