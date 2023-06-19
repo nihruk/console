@@ -62,21 +62,28 @@ class RequestListener
         }
         $response = $event->getResponse();
         $content = $response->getContent();
-        $accept_string = implode(', ', $this->acceptable);
+        $acceptString = implode(', ', $this->acceptable);
         $acceptHeader = AcceptHeader::fromString((string)$this->accepts);
-        $interText  = $acceptHeader->has('text/html');
-        $interJson  = $acceptHeader->has('application/json');
-        $intersect  = $interText || $interJson;
+        $acceptText  = $acceptHeader->has('text/html');
+        $acceptJson  = $acceptHeader->has('application/json');
+        $acceptEmpty  = $acceptHeader->has('');
+        $acceptCurrStr  = $acceptHeader->__toString();
+        $acceptAny  = $acceptText || $acceptJson;
 
-        if (!$intersect) {
-            throw new NotAcceptableHttpException('IODA is only accepting ' . $accept_string . ' at present!');
+        $this->logger->info((string)json_encode($acceptEmpty));
+
+        if (!$acceptAny) {
+            if ($acceptCurrStr === '') {
+                return;
+            }
+            throw new NotAcceptableHttpException('IODA is only accepting ' . $acceptString . ' at present!');
         } else {
             $isJson = $this->jsonValidator($content);
-            if ($isJson && !$interJson) {
-                throw new NotAcceptableHttpException("Content mismatch, add 'json/application' Accept header!");
+            if ($isJson && !$acceptJson) {
+                throw new NotAcceptableHttpException('Content mismatch, please add \'json/application\' Accept header!');
             }
-            if (!$isJson && !$interText) {
-                throw new NotAcceptableHttpException("Content mismatch, please add 'text/html' Accept header!");
+            if (!$isJson && !$acceptText) {
+                throw new NotAcceptableHttpException('Content mismatch, please add \'text/html\' Accept header!');
             }
             return;
         }

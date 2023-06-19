@@ -3,3 +3,10 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+when@test:
+    controllers:
+        resource:
+            path: ../src/Tests/Controller/
+            namespace: App\Tests\Controller
+        type: attribute

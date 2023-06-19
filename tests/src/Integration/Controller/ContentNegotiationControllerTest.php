@@ -50,11 +50,11 @@ class ContentNegotiationControllerTest extends WebTestCase
             [],
             [],
             [
-                'HTTP_ACCEPT' => 'text/xml'
+                'HTTP_ACCEPT' => 'text/html'
             ]
         );
         $response = $client->getResponse();
-        $this->assertResponseHeaderNotSame('Content-Type', 'text/xml');
+        $this->assertResponseHeaderNotSame('Content-Type', 'text/html');
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
         $this->assertSame(406, $response->getStatusCode());
         $this->assertJson((string)$response->getContent());

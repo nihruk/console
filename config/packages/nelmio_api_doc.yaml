@@ -1,0 +1,12 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: IODA
+            description: API for NIHR Data
+            version: 0.0.0
+        # tags:
+        #     - name: "Tag Name"
+        #       description: "Tag description"
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
