@@ -10,4 +10,10 @@
         </properties>
     </rule>
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+ </rule>
 </ruleset>
