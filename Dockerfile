@@ -21,13 +21,15 @@ RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/so
 # install MSSQL drivers
 RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 # @todo not sure we need unixodbc-dev
 #RUN wget https://pecl.php.net/get/sqlsrv-5.11.tgz
-RUN pecl install sqlsrv pdo_sqlserv
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
+
 
 #enable mssql extensions
 RUN docker-php-ext-enable sqlsrv
 
 #RUN docker-php-ext-enable pdo_sqlsrv
-RUN echo "extension=pdo_sqlsrv" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
+RUN echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 
 
