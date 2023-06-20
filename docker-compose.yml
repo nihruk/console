@@ -13,3 +13,12 @@ services:
     ports:
       - "8000:8000"
 
+  info_nihr_db:
+    container_name: infonihr
+    hostname: nihr_dkr
+    build:
+      context: .
+      target: mssql
+      dockerfile: Dockerfile
+    ports:
+      - "1433:1433"
