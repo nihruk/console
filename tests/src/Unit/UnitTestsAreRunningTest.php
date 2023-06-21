@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace src\Unit;
+namespace App\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

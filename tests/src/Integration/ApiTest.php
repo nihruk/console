@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace src\Integration;
+namespace App\Tests\Integration;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
