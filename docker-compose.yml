@@ -25,3 +25,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1433:1433"
+    healthcheck:   # @todo this isn't doing the job yet. We need to wait until the server us running before we run sql
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Ff4rtB4gsFTWasl0IH8s3qu3ls3", "-Q", "SELECT 1", "||", "exit 1" ]
