@@ -39,13 +39,20 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENTRYPOINT ["symfony", "server:start" ]
 
 # @todo we should be able to load these stages in paralell
-FROM mcr.microsoft.com/mssql/server:2022-latest as mssql
+FROM mcr.microsoft.com/mssql/server:2017-latest as mssql
 
 ENV SA_PASSWORD = "Ff4rtB4gsFTWasl0IH8s3qu3ls3"
 ENV MSSQL_SA_PASSWORD = "Ff4rtB4gsFTWasl0IH8s3qu3ls3"
 ENV ACCEPT_EULA=y
 
 RUN mkdir -m 770 -p /var/opt/mssql
+RUN mkdir /usr/src/sql
+
+COPY setupTestDB.sql /usr/src/sql
 
 
+#RUN /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3'
+
+
+#    -i /usr/src/sql/setupTestDB.sql
 
