@@ -25,7 +25,8 @@ This is currently a bare bones symfony project
 
 
 ### Usage Instructions
-- clone this repository
+- Clone this repository
+- Open a Bash terminal (such as Git Bash or WSL if on Windows)
 - Run `./bin/dev-start` to start the development environment
 - Run `./bin/dev-build` to (re)build the IODA application
 
