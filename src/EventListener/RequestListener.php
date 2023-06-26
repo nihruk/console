@@ -16,9 +16,6 @@ use Psr\Log\LoggerInterface;
 
 class RequestListener
 {
-    /**
-     * @var string
-     */
     private string $environment;
     /**
      * @var array<String>
@@ -26,7 +23,7 @@ class RequestListener
     private array $acceptable;
 
     public function __construct(
-        private readonly LoggerInterface $logger,
+        private LoggerInterface $logger,
         string $environment,
         private string|null $accepts = ''
     ) {
