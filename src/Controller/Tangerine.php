@@ -8,10 +8,7 @@ use Exception;
 
 class Tangerine extends Exception
 {
-    /**
-     * @var string
-     */
-    private static $tangerineWithError = 'tangerine';
+    private static string $tangerineWithError = 'tangerine';
     public function __construct(string $tangerineName)
     {
         self::$tangerineWithError = $tangerineName;
