@@ -48,11 +48,8 @@ ENV ACCEPT_EULA=y
 RUN mkdir -m 770 -p /var/opt/mssql
 RUN mkdir /usr/src/sql
 
-COPY setupTestDB.sql /usr/src/sql
+COPY tests/assets/mssql/setupTestDB.sql /usr/src/sql
 
 
-#RUN /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3'
-
-
-#    -i /usr/src/sql/setupTestDB.sql
+# CMD /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3' -i /usr/src/sql/setupTestDB.sql
 
