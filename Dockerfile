@@ -29,12 +29,7 @@ RUN docker-php-ext-enable sqlsrv
 RUN echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 
-
-
-
-
 ENV COMPOSER_ALLOW_SUPERUSER=1
-
 
 ENTRYPOINT ["symfony", "server:start" ]
 
@@ -48,8 +43,8 @@ ENV ACCEPT_EULA=y
 RUN mkdir -m 770 -p /var/opt/mssql
 RUN mkdir /usr/src/sql
 
-COPY tests/assets/mssql/setupTestDB.sql /usr/src/sql
+COPY tests/assets/mssql/init/setupTestDB.sql /usr/src/sql
+COPY tests/assets/mssql/mssql.conf var/opt/mssql
 
 
-# CMD /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3' -i /usr/src/sql/setupTestDB.sql
 
