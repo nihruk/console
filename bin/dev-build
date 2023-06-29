@@ -5,4 +5,5 @@ set -Eeuo pipefail
 cd "$(dirname "$0")/.."
 
 docker exec ioda_php composer install
-docker exec infonihr opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3' -i  usr/src/sql/setupTestDB.sql
+docker exec infonihr opt/mssql-tools/bin/sqlcmd -?
+#docker exec infonihr opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3' -i  usr/src/sql/setupTestDB.sql
