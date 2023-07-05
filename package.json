@@ -21,7 +21,7 @@
     "ext": "js,json,php"
   },
   "scripts": {
-    "server": "nodemon server",
+    "server": "nodemon -L server.js",
     "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ./openapi/'",
     "test-ioda-specification": "node test-ioda-specification.js",
     "test": "npm run test-ioda-specification",
