@@ -26,23 +26,5 @@ services:
     ports:
       - "1433:1433"
 
-#    healthcheck:   # @todo this isn't doing the job yet. We need to wait until the server us running before we run sql
-#      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "127.0.0.1", "-U", "sa", "-P", "Ff4rtB4gsFTWasl0IH8s3qu3ls3", "-Q", "SELECT 1", "||", "exit 1" ]
-#      interval: 8s
-#      timeout: 3s
-#      retries: 5
-#      start_period: 8s
-#
-#  initializr:
-#    image: mcr.microsoft.com/mssql-tools
-##    volumes:
-##      - ./tests/assets/mssql/init:/usr/src/sql
-#    build:
-#      context: .
-#    depends_on:
-#      info_nihr_db:
-#        condition: service_started
-#    command:
-#      - /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'Ff4rtB4gsFTWasl0IH8s3qu3ls3' -i ./usr/src/sql/setupTestDB.sql
 
 
