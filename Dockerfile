@@ -23,7 +23,6 @@ RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 
 RUN pecl install sqlsrv
 RUN pecl install pdo_sqlsrv
 
-
 #enable mssql extensions
 RUN docker-php-ext-enable sqlsrv
 RUN echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
