@@ -13,6 +13,7 @@
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/http-client": "6.2.*",
         "symfony/runtime": "6.2.*",
         "symfony/twig-bundle": "6.2.*",
         "symfony/yaml": "6.2.*"
@@ -74,19 +75,19 @@
             "@test-phpcs",
             "@test-phpunit"
         ],
-        "test-psalm": "./vendor/bin/psalm --no-cache",
-        "test-phpstan": "./vendor/bin/phpstan analyse",
-        "test-phpcs": "./vendor/bin/phpcs",
+        "test-psalm": "php ./vendor/bin/psalm --no-cache",
+        "test-phpstan": "php ./vendor/bin/phpstan analyse",
+        "test-phpcs": "php ./vendor/bin/phpcs",
         "test-phpunit": [
             "@test-phpunit-unit",
             "@test-phpunit-integration"
         ],
-        "test-phpunit-unit": "./vendor/bin/phpunit --testsuite unit",
-        "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration",
+        "test-phpunit-unit": "php ./vendor/bin/phpunit --testsuite unit",
+        "test-phpunit-integration": "php ./vendor/bin/phpunit --testsuite integration",
         "fix": [
             "@fix-phpcbf"
         ],
-        "fix-phpcbf": "./vendor/bin/phpcbf"
+        "fix-phpcbf": "php ./vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -3,6 +3,7 @@
 .vercel
 .idea
 
+/elk/logstash/pipelines
 
 ###> symfony/framework-bundle ###
 /.env.local
