@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Tests\Entity\Staff;
 use App\Tests\Integration\IntegrationTestCase;
 use App\Tests\Repository\StaffRepository;
-use Doctrine\ORM\EntityManager;
 
 
 class StaffTest extends IntegrationTestCase
@@ -20,6 +20,33 @@ class StaffTest extends IntegrationTestCase
             "An unexpected value was retrieved from a 'staff' entity."
         );
     }
+
+    public function testAddedEntityReturnsCorrectValue(): void
+    {
+        $name = 'Muttley';
+        $occupation = 'sidekick';
+
+        $muttley = new Staff();
+        $muttley->setName($name);
+        $muttley->setOccupation($occupation);
+        $this->entityManager->persist($muttley);
+        $this->entityManager->flush();
+
+        $dbMuttley = $this->staffRepository->findOneBy(
+            [
+                'Name' => $name,
+                'Occupation' => $occupation
+            ]);
+
+        $this->assertSame(
+            $dbMuttley->getName(),
+            $muttley->getName(),
+            'we were unable to persist an enity and retrieve its values'
+        );
+
+
+    }
+
 
     protected function setUp(): void
     {

@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class IntegrationTestCase extends WebTestCase
 {
-    protected $entityManager;
+    protected ?EntityManager $entityManager;
 
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
+
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
