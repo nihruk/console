@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 use App\Tests\Entity\Staff;
 use App\Tests\Integration\IntegrationTestCase;
-use App\Tests\Repository\StaffRepository;
+use Doctrine\Persistence\ObjectRepository;
+
+//use App\Tests\Repository\ObjectRepository;
 
 
 class StaffTest extends IntegrationTestCase
 {
-    private StaffRepository $staffRepository;
+    private ObjectRepository $staffRepository;
 
     public function testEntityFromRepoReturnsCorrectValue(): void
     {
