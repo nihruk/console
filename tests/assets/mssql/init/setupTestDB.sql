@@ -1,7 +1,7 @@
-CREATE DATABASE infonihr;
+CREATE DATABASE infonihr_test;
 GO
 
-USE infonihr;
+USE infonihr_test;
 
 CREATE TABLE staff(
 ID INT not null IDENTITY(1,1) PRIMARY KEY,
@@ -16,16 +16,16 @@ GO
 
 USE [master]
 GO
-CREATE LOGIN [ioda] WITH PASSWORD=N'g4t3sC4n34tMySh0rtz', DEFAULT_DATABASE=[infonihr]
+CREATE LOGIN [ioda] WITH PASSWORD=N'g4t3sC4n34tMySh0rtz', DEFAULT_DATABASE=[infonihr_test]
 ALTER SERVER ROLE [dbcreator] ADD MEMBER [ioda]
 GO
 
-USE [infonihr]
+USE [infonihr_test]
 GO
 CREATE USER [ioda] FOR LOGIN [ioda] WITH DEFAULT_SCHEMA=[dbo]
 GO
 
-USE [infonihr]
+USE [infonihr_test]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [ioda]
 GO
