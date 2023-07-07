@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class IntegrationTestCase extends WebTestCase
 {
-    protected ?EntityManager $entityManager;
+    protected EntityManager $entityManager;
 
+    #@todo we could throw an exception here if this returns null
+    /** @psalm-suppress  PossiblyNullReference, MixedMethodCall */
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
-
+        /** @var EntityManager entityManager */
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -29,7 +31,7 @@ abstract class IntegrationTestCase extends WebTestCase
 
         // free up memory
         $this->entityManager->close();
-        $this->entityManager = null;
+//        $this->entityManager = null;
     }
 
 

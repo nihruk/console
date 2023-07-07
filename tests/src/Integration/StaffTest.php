@@ -13,6 +13,7 @@ class StaffTest extends IntegrationTestCase
 {
     private ObjectRepository $staffRepository;
 
+/** @psalm-suppress PossiblyNullReference, MixedMethodCall*/
     public function testEntityFromRepoReturnsCorrectValue(): void
     {
         $this->assertSame(
@@ -23,6 +24,7 @@ class StaffTest extends IntegrationTestCase
         );
     }
 
+    /** @psalm-suppress PossiblyNullReference, MixedMethodCall */
     public function testAddedEntityReturnsCorrectValue(): void
     {
         $name = 'Muttley';
@@ -53,6 +55,9 @@ class StaffTest extends IntegrationTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        #@todo we could throw an exception here if getRepository returns null
+        /** @psalm-suppress PossiblyNullArgument */
         $this->staffRepository = $this->entityManager
             ->getRepository(App\Tests\Entity\Staff::class);
     }
