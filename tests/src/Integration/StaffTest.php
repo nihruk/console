@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
+namespace App\Tests\Integration;
+
 use App\Tests\Entity\Staff;
-use App\Tests\Integration\IntegrationTestCase;
 use Doctrine\Persistence\ObjectRepository;
-
-//use App\Tests\Repository\ObjectRepository;
-
 
 class StaffTest extends IntegrationTestCase
 {
     private ObjectRepository $staffRepository;
 
-/** @psalm-suppress PossiblyNullReference, MixedMethodCall*/
+    /** @psalm-suppress PossiblyNullReference, MixedMethodCall */
     public function testEntityFromRepoReturnsCorrectValue(): void
     {
+        /** @var Staff $dora */
+        $dora = $this->staffRepository->find('4');
+
         $this->assertSame(
-            "Dora",
-            $this->staffRepository->find("4")
-                ->getName(),
+            'Dora',
+            $dora->getName(),
             "An unexpected value was retrieved from a 'staff' entity."
         );
     }
@@ -33,33 +33,32 @@ class StaffTest extends IntegrationTestCase
         $muttley = new Staff();
         $muttley->setName($name);
         $muttley->setOccupation($occupation);
-        $this->entityManager->persist($muttley);
-        $this->entityManager->flush();
+        $this->entityManager->persist($muttley); /** @phpstan-ignore-line */
+        $this->entityManager->flush(); /** @phpstan-ignore-line */
 
+        /** @var Staff $dbMuttley */
         $dbMuttley = $this->staffRepository->findOneBy(
             [
                 'Name' => $name,
                 'Occupation' => $occupation
-            ]);
+            ]
+        );
 
         $this->assertSame(
             $dbMuttley->getName(),
             $muttley->getName(),
             'we were unable to persist an enity and retrieve its values'
         );
-
-
     }
 
-
+    /** @psalm-suppress PossiblyNullArgument, MixedArgument, PossiblyNullReference  */
     protected function setUp(): void
     {
         parent::setUp();
 
         #@todo we could throw an exception here if getRepository returns null
-        /** @psalm-suppress PossiblyNullArgument */
-        $this->staffRepository = $this->entityManager
-            ->getRepository(App\Tests\Entity\Staff::class);
-    }
 
+        $this->staffRepository = $this->entityManager /** @phpstan-ignore-line */
+            ->getRepository(Staff::class);
+    }
 }
