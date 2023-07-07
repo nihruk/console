@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Entity;
 
 use App\Tests\Repository\StaffRepository;
@@ -23,7 +25,6 @@ class Staff
     {
         return $this->ID;
     }
-
 
 
     public function getName(): ?string
