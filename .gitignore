@@ -3,6 +3,7 @@
 .vercel
 .idea
 /public/info.php
+/tests/assets/mssql/datafiles/*
 
 ###> symfony/framework-bundle ###
 /.env.local
