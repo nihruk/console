@@ -1,3 +1,9 @@
+DROP DATABASE IF EXISTS infonihr_test;
+DROP USER IF EXISTS ioda ;
+DROP LOGIN ioda;
+GO
+
+
 CREATE DATABASE infonihr_test;
 GO
 
@@ -23,9 +29,5 @@ GO
 USE [infonihr_test]
 GO
 CREATE USER [ioda] FOR LOGIN [ioda] WITH DEFAULT_SCHEMA=[dbo]
-GO
-
-USE [infonihr_test]
-GO
 ALTER ROLE [db_owner] ADD MEMBER [ioda]
 GO
