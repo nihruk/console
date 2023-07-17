@@ -11,8 +11,6 @@ abstract class IntegrationTestCase extends WebTestCase
 {
     protected ?EntityManager $entityManager;
 
-    #@todo we could throw an exception here if this returns null
-
     /** @psalm-suppress  PossiblyNullReference, MixedMethodCall */
     protected function setUp(): void
     {

@@ -9,7 +9,7 @@ COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony #this is v5 of the symphony cli, not symfony
 
-# install php extensions @todo we're keeping this readable during development but all the extensions install steps need to be optimised into 1 RUN layer.
+# install php extensions @todo keeping this readable for now, but optimisation will be needed, see https://github.com/nihruk/console/issues/75
 RUN apt-get update
 RUN apt-get install -y libzip-dev gnupg2 wget
 RUN docker-php-ext-install zip
@@ -19,7 +19,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # install MSSQL drivers
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 # @todo not sure we need unixodbc-dev
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18
 RUN pecl install sqlsrv
 RUN pecl install pdo_sqlsrv
 
@@ -32,7 +32,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 ENTRYPOINT ["symfony", "server:start" ]
 
-# @todo we should be able to load these stages in paralell
+# @todo we aim to load these stages in paralell, see https://github.com/nihruk/console/issues/75
 FROM mcr.microsoft.com/mssql/server:2017-latest as mssql
 
 ENV SA_PASSWORD = "Ff4rtB4gsFTWasl0IH8s3qu3ls3"
