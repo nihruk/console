@@ -18,7 +18,6 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: Ff4rtB4gsFTWasl0IH8s3qu3ls3
     container_name: infonihr
-    hostname: nihr_dkr
     build:
       context: .
       target: mssql
