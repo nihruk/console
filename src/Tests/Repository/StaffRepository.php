@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Repository;
 
-use App\Tests\Entity\Staff;
+use App\Tests\Entity\StaffTest\Staff;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

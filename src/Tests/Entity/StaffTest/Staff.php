@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Entity;
+namespace App\Tests\Entity\StaffTest;
 
 use App\Tests\Repository\StaffRepository;
 use Doctrine\ORM\Mapping as ORM;
