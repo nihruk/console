@@ -2,7 +2,6 @@
 /package-lock.json
 .vercel
 .idea
-/public/info.php
 /tests/assets/mssql/datafiles/*.mdf
 /tests/assets/mssql/datafiles/*.ldf
 
