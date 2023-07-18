@@ -1,14 +1,8 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-        driver: 'sqlsrv'
-        server_version: '14.0.3460.9'
         charset: utf-8
-        user: '%env(DATABASE_USER)%'
-        password: '%env(DATABASE_PWD)%'
-        dbname: '%env(DATABASE_NAME)%'
-        host: 127.0.0.1
-        port: 1433
+
 
     orm:
         auto_generate_proxy_classes: true
@@ -32,13 +26,9 @@ doctrine:
 when@test:
     doctrine:
         dbal:
-            # "TEST_TOKEN" is typically set by ParaTest
+            url: '%env(resolve:DATABASE_URL)%'
             dbname_suffix: '_test%env(default::TEST_TOKEN)%'
-            host: 127.0.0.1
-            port: 1433
-            user: 'ioda'
-            password: 'g4t3sC4n34tMySh0rtz'
-            dbname: 'infonihr'
+
 
 when@prod:
     doctrine:
