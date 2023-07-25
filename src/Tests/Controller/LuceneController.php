@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Tests\Controller;
 
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Psr\Log\LoggerInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[Route('/api', name: 'api_')]
 class LuceneController extends AbstractController
@@ -28,7 +25,7 @@ class LuceneController extends AbstractController
         LoggerInterface $logger,
         string $query
     ): Response {
-        $response = $httpClient->request('GET', 'http://node:8081/parse?q=' . $query);
+        $response = $httpClient->request('GET', 'http://luceneparser:8081/parse?q=' . $query);
         $response = $response->getContent();
         $logger->info((string)json_encode($response));
         $out = new Response($response, 200);
