@@ -22,6 +22,8 @@ networks:
 services:
   php:
     container_name: ioda_php
+    depends_on:
+      - luceneparser
     build: # we are specifying the version in the Dockerfile
       context: .
       target: php
