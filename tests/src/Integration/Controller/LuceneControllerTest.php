@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LuceneControllerTest extends WebTestCase
 {
-
     public function testElastic(): void
     {
         $client = static::createClient();
