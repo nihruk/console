@@ -22,7 +22,7 @@
   },
   "scripts": {
     "server": "nodemon -L node/server.js",
-    "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ./openapi/'",
+    "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ../openapi/'",
     "test-ioda-specification": "node node/test-ioda-specification.js",
     "test": "npm run test-ioda-specification",
     "watch:psalm": "nodemon --watch ./src/** --exec \"composer run psalm\"",
