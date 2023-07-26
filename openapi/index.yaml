@@ -17,7 +17,7 @@ paths:
       description: Get a collection of resources.
       responses:
         '200':
-          '$ref': '#/components/responses/200OKResourcesCollection'
+          '$ref': '#/components/responses/200OKResources'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -69,7 +69,7 @@ paths:
       summary: Get a collection of research programmes
       responses:
         '200':
-          '$ref': '#/components/responses/200OKProgrammesCollection'
+          '$ref': '#/components/responses/200OKProgrammes'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -116,13 +116,13 @@ paths:
       - '$ref': '#/components/parameters/programmeId'
   '/awards':
     get:
-      operationId: getAwardsCollection
+      operationId: getAwards
       tags:
         - Awards
       summary: Get a collection of awards
       responses:
         '200':
-          '$ref': '#/components/responses/200OKAwardsCollection'
+          '$ref': '#/components/responses/200OKAwards'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -211,7 +211,7 @@ paths:
       summary: Get a collection of journals
       responses:
         '200':
-          '$ref': '#/components/responses/200OKJournalsCollection'
+          '$ref': '#/components/responses/200OKJournals'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -258,13 +258,13 @@ paths:
       - '$ref': '#/components/parameters/journalId'
   '/volumes':
     get:
-      operationId: getVolumesCollection
+      operationId: getVolumes
       tags:
         - Volumes
       summary: Get a collection of volumes
       responses:
         '200':
-          '$ref': '#/components/responses/200OKVolumesCollection'
+          '$ref': '#/components/responses/200OKVolumes'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -313,13 +313,13 @@ paths:
       - '$ref': '#/components/parameters/volumeId'
   '/publications':
     get:
-      operationId: getPublicationsCollection
+      operationId: getPublications
       tags:
         - Publications
       summary: Get a collection of publications
       responses:
         '200':
-          '$ref': '#/components/responses/200OKPublicationsCollection'
+          '$ref': '#/components/responses/200OKPublications'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -375,7 +375,7 @@ paths:
       summary: Get a collection of people
       responses:
         '200':
-          '$ref': '#/components/responses/200OKPersonsCollection'
+          '$ref': '#/components/responses/200OKPersons'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -427,7 +427,7 @@ paths:
       summary: Get a collection of organisations.
       responses:
         '200':
-          '$ref': '#/components/responses/200OKOrganisationsCollection'
+          '$ref': '#/components/responses/200OKOrganisations'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -479,7 +479,7 @@ paths:
       summary: Get a collection of users
       responses:
         '200':
-          '$ref': '#/components/responses/200OKUsersCollection'
+          '$ref': '#/components/responses/200OKUsers'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
@@ -1486,7 +1486,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/resource'
-    200OKResourcesCollection:
+    200OKResources:
       description: A collection of resources
       content:
         application/json:
@@ -1502,10 +1502,10 @@ components:
             '$ref': '#/components/schemas/programme'
       links:
         awards:
-          operationId: getAwardsCollection
+          operationId: getAwards
           parameters:
             programme: '$response.body#/id'
-    200OKProgrammesCollection:
+    200OKProgrammes:
       description: A collection of research programmes.
       content:
         application/json:
@@ -1519,7 +1519,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/award'
-    200OKAwardsCollection:
+    200OKAwards:
       description: A collection of awards.
       content:
         application/json:
@@ -1539,7 +1539,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/journal'
-    200OKJournalsCollection:
+    200OKJournals:
       description: A collection of journals.
       content:
         application/json:
@@ -1555,10 +1555,10 @@ components:
             '$ref': '#/components/schemas/volume'
       links:
         publications:
-          operationId: getPublicationsCollection
+          operationId: getPublications
           parameters:
             volume: '$response.body#/id'
-    200OKVolumesCollection:
+    200OKVolumes:
       description: A collection of volumes.
       content:
         application/json:
@@ -1572,7 +1572,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/publication'
-    200OKPublicationsCollection:
+    200OKPublications:
       description: A collection of publications.
       content:
         application/json:
@@ -1586,7 +1586,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/person'
-    200OKPersonsCollection:
+    200OKPersons:
       description: A collection of people.
       content:
         application/json:
@@ -1602,14 +1602,14 @@ components:
             '$ref': '#/components/schemas/organisation'
       links:
         contractedAwards:
-          operationId: getAwardsCollection
+          operationId: getAwards
           parameters:
             contractor: '$response.body#/id'
         managedAwards:
-          operationId: getAwardsCollection
+          operationId: getAwards
           parameters:
             manager: '$response.body#/id'
-    200OKOrganisationsCollection:
+    200OKOrganisations:
       description: A collection of organisations.
       content:
         application/json:
@@ -1623,7 +1623,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/user'
-    200OKUsersCollection:
+    200OKUsers:
       description: A collection of users.
       content:
         application/json:
