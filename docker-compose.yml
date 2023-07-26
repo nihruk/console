@@ -189,11 +189,11 @@ services:
     volumes:
       - certs:/usr/share/metricbeat/certs
       - metricbeatdata01:/usr/share/metricbeat/data
-      - "./elk/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro"
-      - "/proc:/hostfs/proc:ro"
-      - "/:/hostfs:ro"
+      - ./docker/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
     environment:
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
@@ -211,10 +211,10 @@ services:
     volumes:
       - certs:/usr/share/filebeat/certs
       - filebeatdata01:/usr/share/filebeat/data
-      - "./elk/filebeat_ingest_data/:/usr/share/filebeat/ingest_data/"
-      - "./elk/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
-      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./docker/filebeat/filebeat_ingest_data/:/usr/share/filebeat/ingest_data/
+      - ./docker/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
@@ -228,17 +228,21 @@ services:
         condition: service_healthy
       kibana:
         condition: service_healthy
-    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    build:
+      context: ./docker/logstash
+      args:
+        - STACK_VERSION=${STACK_VERSION}
     labels:
       co.elastic.logs/module: logstash
     user: root
     volumes:
+      - ./docker/logstash/entrypoint.sh:/entrypoint.sh:ro,Z
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
-      - "./elk/logstash_ingest_data/:/usr/share/logstash/ingest_data/"
-      - "./elk/logstash/drv:/usr/share/logstash/drv/"
-      - "./elk/logstash/pipelines:/usr/share/logstash/bin/conf.d/"
-      - "./elk/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro"
+      - ./docker/logstash/logstash_ingest_data/:/usr/share/logstash/ingest_data/
+      - ./docker/logstash/drv:/usr/share/logstash/drv/
+      - ./docker/logstash/pipelines:/usr/share/logstash/bin/conf.d/
+      - ./docker/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
     environment:
       - xpack.monitoring.enabled=false
       - ELASTIC_USER=elastic

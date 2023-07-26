@@ -119,3 +119,5 @@
   path.config: "/usr/share/logstash/bin/conf.d/DEV_ioda_awards_db.conf"
 - pipeline.id: DEV_research_awards_V6.conf
   path.config: "/usr/share/logstash/bin/conf.d/DEV_research_awards_V6.conf"
+- pipeline.id: DEV_research_awards_V7.conf
+  path.config: "/usr/share/logstash/bin/conf.d/DEV_research_awards_V7.conf"

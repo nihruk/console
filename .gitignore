@@ -3,7 +3,10 @@
 .vercel
 .idea
 
-/elk/logstash/pipelines
+/docker/logstash/drv/*
+/docker/logstash/pipelines/*
+!/docker/logstash/pipelines/.keep
+!/docker/logstash/drv/.keep
 
 ###> symfony/framework-bundle ###
 /.env.local
