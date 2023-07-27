@@ -243,10 +243,13 @@ services:
       - ./docker/logstash/drv:/usr/share/logstash/drv/
       - ./docker/logstash/pipelines:/usr/share/logstash/bin/conf.d/
       - ./docker/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./docker/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
     environment:
       - xpack.monitoring.enabled=false
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-      - SQL_USER=${SQL_USER}
-      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_USER1=${SQL_USER1}
+      - SQL_PASSWORD1=${SQL_PASSWORD1}
+      - SQL_USER2=${SQL_USER2}
+      - SQL_PASSWORD2=${SQL_PASSWORD2}
       - ELASTIC_HOSTS=https://es01:9200
