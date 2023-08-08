@@ -56,7 +56,6 @@ class StaffTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        #@todo we could throw an exception here if getRepository returns null
 
         $this->staffRepository = $this->entityManager /** @phpstan-ignore-line */
             ->getRepository(Staff::class);
