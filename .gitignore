@@ -1,3 +1,4 @@
+/docker/volumes
 /node_modules
 /package-lock.json
 .vercel
