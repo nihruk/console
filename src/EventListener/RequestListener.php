@@ -16,11 +16,14 @@ use Psr\Log\LoggerInterface;
 
 class RequestListener
 {
-    private string $environment;
+    /**
+     * @var string
+     */
+    private $environment;
     /**
      * @var array<String>
      */
-    private array $acceptable;
+    private $acceptable;
 
     public function __construct(
         private LoggerInterface $logger,
@@ -35,7 +38,7 @@ class RequestListener
     {
         if (!empty($data)) {
             return is_string($data) &&
-                is_array(json_decode($data, true));
+                is_array(json_decode($data, true)) ? true : false;
         }
         return false;
     }

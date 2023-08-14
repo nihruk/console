@@ -8,6 +8,8 @@
 !/docker/logstash/pipelines/.keep
 !/docker/logstash/drv/.keep
 
+/docker/volumes/info_nihr_db
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

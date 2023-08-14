@@ -9,7 +9,6 @@
             <property name="spacesCountAroundEqualsSign" value="0"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
     <rule ref="Generic.Files.LineLength">
         <properties>
