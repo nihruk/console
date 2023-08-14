@@ -13,3 +13,19 @@ services:
     ports:
       - "8000:8000"
 
+  info_nihr_db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Ff4rtB4gsFTWasl0IH8s3qu3ls3
+    container_name: infonihr
+    build:
+      context: .
+      target: mssql
+      dockerfile: Dockerfile
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./docker/volumes/info_nihr_db/mssql-data:/var/opt/mssql/data/
+
+
+

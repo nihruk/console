@@ -6,7 +6,7 @@ namespace App\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class UnitTestsAreRunningTest extends TestCase
+final class UnitTestsAreRunningTest extends TestCase
 {
     public function testUnitTestRanOkTest(): void
     {
