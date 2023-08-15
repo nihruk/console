@@ -1,8 +1,14 @@
-/docker/volumes
 /node_modules
 /package-lock.json
 .vercel
 .idea
+
+/docker/logstash/drv/*
+/docker/logstash/pipelines/*
+!/docker/logstash/pipelines/.keep
+!/docker/logstash/drv/.keep
+
+/docker/volumes/info_nihr_db
 
 ###> symfony/framework-bundle ###
 /.env.local

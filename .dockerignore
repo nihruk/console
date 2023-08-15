@@ -4,7 +4,7 @@
 readme.md
 package.json
 package-lock.json
-test-ioda-specification.js
+node/test-ioda-specification.js
 openapi
 
 
