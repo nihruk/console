@@ -472,6 +472,139 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/organizationId'
+  '/token/{tokenId}':
+    get:
+      tags:
+        - Auth
+      summary: Get an access token
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'token:read'
+    patch:
+      tags:
+        - Auth
+      summary: Update an access token
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/jsonPatch'
+              description: A JSON Patch document as defined by [RFC6902](https://datatracker.ietf.org/doc/html/rfc6902/) applied to `#/components/schemas/tokenUpdate`.
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'token:update'
+    delete:
+      tags:
+        - Auth
+      summary: Delete an access token
+      responses:
+        '200':
+          description: The access token was successfully deleted.
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'token:delete'
+    parameters:
+      - '$ref': '#/components/parameters/tokenId'
+  '/permission':
+    get:
+      tags:
+        - Auth
+      summary: Get a collection of all existing permissions
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKPermissionCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
   '/user':
     get:
       tags:
@@ -501,7 +634,8 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
-        - ioda: []
+        - ioda:
+          - 'user:readAny'
     post:
       tags:
         - User
@@ -537,7 +671,8 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
-        - ioda: []
+        - ioda:
+          - 'user:create'
   '/user/{userId}':
     get:
       tags:
@@ -569,7 +704,9 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
-        - ioda: []
+        - ioda:
+          - 'user:read'
+          - 'user:readAny'
     patch:
       tags:
         - User
@@ -578,7 +715,7 @@ paths:
         content:
           application/json-patch+json:
             schema:
-              '$ref': 'https://json.schemastore.org/json-patch'
+              '$ref': '#/components/schemas/jsonPatch'
       responses:
         '200':
           '$ref': '#/components/responses/200OKUser'
@@ -605,7 +742,9 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
-        - ioda: []
+        - ioda:
+          - 'user:update'
+          - 'user:updateAny'
     delete:
       tags:
         - User
@@ -636,11 +775,558 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
-        - ioda: []
+        - ioda:
+          - 'user:delete'
+          - 'user:deleteAny'
     parameters:
       - '$ref': '#/components/parameters/userId'
+  '/user/{userId}/token':
+    get:
+      tags:
+        - Auth
+        - User
+      summary: Get a user's access tokens
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenCollectionRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'user:read'
+          - 'user:readAny'
+    post:
+      tags:
+        - Auth
+        - User
+      summary: Create an access token for a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/tokenCreate'
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenFirstTimeRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'user:update'
+          - 'user:updateAny'
+    parameters:
+      - '$ref': '#/components/parameters/userId'
+  '/user-group':
+    get:
+      tags:
+        - User group
+      summary: Get a collection of user groups
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKUserGroupCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:readAny'
+    post:
+      tags:
+        - User group
+      summary: Save a new user group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/userGroup'
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKUserGroup'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:create'
+  '/user-group/{userGroupId}':
+    get:
+      tags:
+        - User group
+      summary: Get a user group
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKUserGroup'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:read'
+          - 'userGroup:readAny'
+    patch:
+      tags:
+        - User group
+      summary: Update a user group
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              '$ref': '#/components/schemas/jsonPatch'
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKUserGroup'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:update'
+          - 'userGroup:updateAny'
+    delete:
+      tags:
+        - User group
+      summary: Delete a user group
+      responses:
+        '200':
+          description: The user group was successfully deleted.
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:delete'
+          - 'userGroup:deleteAny'
+    parameters:
+      - '$ref': '#/components/parameters/userGroupId'
+  '/user-group/{userGroupId}/token':
+    get:
+      tags:
+        - Auth
+        - User group
+      summary: Get a user group's access tokens
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenCollectionRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:read'
+          - 'userGroup:readAny'
+    post:
+      tags:
+        - Auth
+        - User group
+      summary: Create an access token for a user group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/tokenCreate'
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKTokenFirstTimeRead'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:update'
+          - 'userGroup:updateAny'
+    parameters:
+      - '$ref': '#/components/parameters/userGroupId'
+  '/user-group/{userGroupId}/member':
+    get:
+      tags:
+        - User
+        - User group
+      summary: Get a user group's members
+      responses:
+        '200':
+          '$ref': '#/components/responses/200OKUserCollection'
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:read'
+          - 'userGroup:readAny'
+    post:
+      tags:
+        - User
+        - User group
+      summary: Add a member to a user group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/userGroupMember'
+      responses:
+        '200':
+          description: The user was successfully added to the group as a member.
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:update'
+          - 'userGroup:updateAny'
+    parameters:
+      - '$ref': '#/components/parameters/userGroupId'
+  '/user-group/{userGroupId}/member/{userId}':
+    delete:
+      tags:
+        - User
+        - User group
+      summary: Delete a member from a user group
+      responses:
+        '200':
+          description: The member was successfully deleted from the group.
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '401':
+          '$ref': '#/components/responses/401Unauthorized'
+        '403':
+          '$ref': '#/components/responses/403Forbidden'
+        '404':
+          '$ref': '#/components/responses/404NotFound'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+      security:
+        - ioda:
+          - 'userGroup:update'
+          - 'userGroup:updateAny'
+    parameters:
+      - '$ref': '#/components/parameters/userGroupId'
+      - '$ref': '#/components/parameters/userId'
+  /oauth2/authorization:
+    get:
+      tags:
+        - Auth
+      summary: Get an OAuth2 authorization grant
+      externalDocs:
+        description: RFC6749
+        url: https://www.rfc-editor.org/rfc/rfc6749#section-3.1
+      responses:
+        '200':
+          description: An OAuth2 authorization grant
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
+  /oauth2/token:
+    get:
+      tags:
+        - Auth
+      summary: Get an OAuth2 token
+      externalDocs:
+        description: RFC6749
+        url: https://www.rfc-editor.org/rfc/rfc6749#section-3.2
+      responses:
+        '200':
+          description: An OAuth2 token
+        '400':
+          '$ref': '#/components/responses/400BadRequest'
+        '405':
+          '$ref': '#/components/responses/405MethodNotAllowed'
+        '406':
+          '$ref': '#/components/responses/406NotAcceptable'
+        '415':
+          '$ref': '#/components/responses/415UnsupportedMediaType'
+        '500':
+          '$ref': '#/components/responses/500InternalServerError'
+        '502':
+          '$ref': '#/components/responses/502BadGateway'
+        '503':
+          '$ref': '#/components/responses/503ServiceUnavailable'
+        '504':
+          '$ref': '#/components/responses/504GatewayTimeout'
 components:
   schemas:
+    jsonPointer:
+      title: JSON Pointer
+      description: A JSON Pointer path as defined by [RFC6901](https://datatracker.ietf.org/doc/html/rfc6901/).
+      type: string
+    jsonPatch:
+      title: JSON Patch
+      description: A JSON Patch document as defined by [RFC6902](https://datatracker.ietf.org/doc/html/rfc6902/).
+      type: array
+      items:
+        oneOf:
+          - additionalProperties: false
+            required:
+              - value
+              - op
+              - path
+            properties:
+              path:
+                $ref: '#/components/schemas/jsonPointer'
+              op:
+                description: The operation to perform.
+                type: string
+                enum:
+                  - add
+                  - replace
+                  - test
+              value:
+                description: The value to add, replace or test.
+          - additionalProperties: false
+            required:
+              - op
+              - path
+            properties:
+              path:
+                $ref: '#/components/schemas/jsonPointer'
+              op:
+                description: The operation to perform.
+                type: string
+                enum:
+                  - remove
+          - additionalProperties: false
+            required:
+              - from
+              - op
+              - path
+            properties:
+              path:
+                $ref: '#/components/schemas/jsonPointer'
+              op:
+                description: The operation to perform.
+                type: string
+                enum:
+                  - move
+                  - copy
+              from:
+                $ref: '#/components/schemas/jsonPointer'
+                description: A JSON Pointer path pointing to the location to move/copy from.
     resource:
       type: object
       properties:
@@ -957,8 +1643,78 @@ components:
         - id
         - name
       additionalProperties: false
+    _baseToken:
+      type: object
+      title: An access token
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The token's human-readable name.
+          examples:
+            - NIHRCC Scheduled Updater
+        permissions:
+          type: array
+          items:
+            '$ref': '#/components/schemas/permissionId'
+      required:
+        - name
+        - permissions
+      additionalProperties: false
+    tokenCreate:
+      '$ref': '#/components/schemas/_baseToken'
+    tokenUpdate:
+      '$ref': '#/components/schemas/_baseToken'
+    _baseTokenRead:
+      allOf:
+        - '$ref': '#/components/schemas/_baseToken'
+        - type: object
+          properties:
+            id:
+              '$ref': '#/components/schemas/tokenId'
+      required:
+        - id
+        - name
+        - permissions
+      additionalProperties: false
+    firstTimeTokenRead:
+      allOf:
+        - '$ref': '#/components/schemas/_baseTokenRead'
+        - type: object
+          properties:
+            token:
+              type: string
+              minLength: 1
+              maxLength: 255
+              description: The access token string. Anyone with this value can impersonate you. You *MUST* keep this private.
+          required:
+            - token
+          additionalProperties: false
+    tokenRead:
+      '$ref': '#/components/schemas/_baseTokenRead'
+    permission:
+      type: object
+      title: Permission
+      description: An API permission.
+      properties:
+        id:
+          '$ref': '#/components/schemas/permissionId'
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: The human-readable description of the permission.
+          examples:
+            - Read the given user.
+            - Delete any user group. This implies `userGroup:readAny`.
+      required:
+        - id
+        - description
+      additionalProperties: false
     user:
       type: object
+      description: A IODA user.
       properties:
         id:
           '$ref': '#/components/schemas/userId'
@@ -966,9 +1722,48 @@ components:
           type: string
           format: email
           description: The user's email address.
+          examples:
+            - info@example.com
+        groups:
+          type: array
+          items:
+            type: string
+            format: uri
+            examples:
+              - /user-group/123
       required:
         - id
         - emailAddress
+      additionalProperties: false
+    userGroup:
+      title: User group
+      description: A IODA user group.
+      type: object
+      properties:
+        id:
+          '$ref': '#/components/schemas/userGroupId'
+        parent:
+          '$ref': '#/components/schemas/userGroupReference'
+        users:
+          type: array
+          items:
+            '$ref': '#/components/schemas/userReference'
+        permissions:
+          type: array
+          items:
+            '$ref': '#/components/schemas/permissionId'
+      required:
+        - id
+        - users
+        - permissions
+      additionalProperties: false
+    userGroupMember:
+      type: object
+      properties:
+        id:
+          '$ref': '#/components/schemas/userId'
+      required:
+        - id
       additionalProperties: false
     error:
       type: object
@@ -1183,16 +1978,43 @@ components:
       format: uri
       examples:
         - /organization/123
+    tokenId:
+      title: Access token ID
+      '$ref': '#/components/schemas/uuidV4'
+    tokenReference:
+      title: Access token reference
+      description: The relative URL of the endpoint to call to retrieve this access token.
+      type: string
+      format: uri
+      examples:
+        - /token/123e4567-e89b-12d3-a456-426614174000
+    permissionId:
+      title: Permission ID
+      type: string
+      pattern: '^[a-z0-9]+[a-zA-Z0-9.]*:[a-z0-9]+[a-zA-Z0-9]*$'
+      examples:
+        - user:read
+        - userGroup:deleteAny
     userId:
       title: User ID
       '$ref': '#/components/schemas/uuidV4'
     userReference:
       title: User reference
-      description: The relative URL of the endpoint to call to retrieve this user.
+      description: The relative URL of the endpoint to call to retrieve this IODA user.
       type: string
       format: uri
       examples:
         - /user/123e4567-e89b-12d3-a456-426614174000
+    userGroupId:
+      title: User group ID
+      '$ref': '#/components/schemas/uuidV4'
+    userGroupReference:
+      title: User group reference
+      description: The relative URL of the endpoint to call to retrieve this IODA user group.
+      type: string
+      format: uri
+      examples:
+        - /user-group/123e4567-e89b-12d3-a456-426614174000
     uuidV4:
       title: UUID v4
       description: A UUID version 4.
@@ -1472,6 +2294,20 @@ components:
       in: query
       schema:
         '$ref': '#/components/schemas/organizationId'
+    tokenId:
+      name: tokenId
+      description: Access token ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/tokenId'
+    permissionId:
+      name: permissionId
+      description: Permission ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/permissionId'
     userId:
       name: userId
       description: User ID.
@@ -1479,6 +2315,13 @@ components:
       required: true
       schema:
         '$ref': '#/components/schemas/userId'
+    userGroupId:
+      name: userGroupId
+      description: User group ID.
+      in: path
+      required: true
+      schema:
+        '$ref': '#/components/schemas/userGroupId'
   responses:
     200OKResource:
       description: A resource
@@ -1623,6 +2466,34 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/user'
+    200OKTokenCollectionRead:
+      description: A collection of access tokens.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/tokenReference'
+    200OKTokenFirstTimeRead:
+      description: An access token.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/firstTimeTokenRead'
+    200OKTokenRead:
+      description: An access token.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/tokenRead'
+    200OKPermissionCollection:
+      description: A collection of all existing permissions.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/permission'
     200OKUserCollection:
       description: A collection of users.
       content:
@@ -1631,6 +2502,20 @@ components:
             type: array
             items:
               '$ref': '#/components/schemas/userReference'
+    200OKUserGroup:
+      description: A user group.
+      content:
+        application/json:
+          schema:
+            '$ref': '#/components/schemas/userGroup'
+    200OKUserGroupCollection:
+      description: A collection of user groups.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              '$ref': '#/components/schemas/userGroupReference'
     400BadRequest:
       description: An HTTP 400 Bad Request error.
       content:
@@ -1699,6 +2584,26 @@ components:
             '$ref': '#/components/schemas/error'
   securitySchemes:
     ioda:
-      type: http
-      scheme: Bearer
-      description: An API token generated through your user account.
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth2/authorization
+          tokenUrl: https://example.com/oauth2/token
+          scopes:
+            'token:read': 'Read the given access token.'
+            'token:update': 'Update the given access token. This implies `token:read`'
+            'token:delete': 'Delete the given access token. This implies `token:read`'
+            'user:create': 'Create new users.'
+            'user:read': 'Read the given user.'
+            'user:readAny': 'Read any user.'
+            'user:update': 'Update the given user. This implies `user:read`'
+            'user:updateAny': 'Update any user. This implies `user:readAny`'
+            'user:delete': 'Delete the given user. This implies `user:read`'
+            'user:deleteAny': 'Delete any user. This implies `user:readAny`'
+            'userGroup:create': 'Create new user groups.'
+            'userGroup:read': 'Read the given user group.'
+            'userGroup:readAny': 'Read any user group.'
+            'userGroup:update': 'Update the given user group. This implies `userGroup:read`.'
+            'userGroup:updateAny': 'Update any user group. This implies `userGroup:readAny`.'
+            'userGroup:delete': 'Delete the given user group. This implies `userGroup:read`.'
+            'userGroup:deleteAny': 'Delete any user group. This implies `userGroup:readAny`.'
