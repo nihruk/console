@@ -252,11 +252,9 @@ services:
       co.elastic.logs/module: logstash
     user: root
     volumes:
-      - ./docker/logstash/entrypoint.sh:/entrypoint.sh:ro,Z
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
       - ./docker/logstash/logstash_ingest_data/:/usr/share/logstash/ingest_data/
-      - ./docker/logstash/drv:/usr/share/logstash/drv/
       - ./docker/logstash/pipelines:/usr/share/logstash/bin/conf.d/
       - ./docker/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
       - ./docker/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
