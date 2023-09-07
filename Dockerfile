@@ -28,6 +28,9 @@ RUN docker-php-ext-enable sqlsrv
 RUN echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
 
+#enable opcache
+RUN docker-php-ext-enable opcache
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 ENTRYPOINT ["symfony", "server:start" ]
