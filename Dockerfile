@@ -2,6 +2,8 @@ FROM php:8.1-fpm as php
 
 WORKDIR /srv/ioda
 
+#args for php
+
 # install composer
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
@@ -30,6 +32,16 @@ RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pd
 
 #enable opcache
 RUN docker-php-ext-enable opcache
+
+#configure opcache with recommended general settings as per php manual
+RUN echo "opcache.memory_consumption=128" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.interned_strings_buffer=8" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.max_accelerated_files=4000" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
+
+
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
