@@ -40,6 +40,8 @@ RUN echo "opcache.max_accelerated_files=4000" >> /usr/local/etc/php/conf.d/docke
 RUN echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
+#enable jit
+RUN echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 
 
