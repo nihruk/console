@@ -1,0 +1,11 @@
+{
+    http_port 80
+    https_port 443
+}
+
+:80 {
+
+    root * /var/www/public
+    php_fpm php:9000
+
+}
