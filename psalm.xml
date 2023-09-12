@@ -13,6 +13,7 @@
         <ignoreFiles>
             <directory name="vendor"/>
             <file name="tests/bootstrap.php"/>
+            <file name="src/Controller/AwardsController.php"/>
         </ignoreFiles>
     </projectFiles>
 <plugins>

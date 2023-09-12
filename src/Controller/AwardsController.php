@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,14 +14,13 @@ use App\Entity\Awards;
 #[Route('/api', name: 'api_')]
 class AwardsController extends AbstractController
 {
-
     #[Route('/awards', name: 'award_list', methods: 'get')]
     public function list(ManagerRegistry $registry): JsonResponse
     {
         $awards = $registry->getRepository(Awards::class)->findAll();
 
         $awardsData = array();
-        foreach ($awards as $award):
+        foreach ($awards as $award) :
             $awardsData[] = $this->getAwardData($award);
         endforeach;
 
@@ -31,8 +32,8 @@ class AwardsController extends AbstractController
     {
         $award = $registry->getRepository(Awards::class)->find($id);
 
-        if (!$award):
-            return $this->json('No award found for id '.$id, 404);
+        if (!$award) :
+            return $this->json('No award found for id ' . $id, 404);
         endif;
 
         $awardData = $this->getAwardData($award);
@@ -62,8 +63,8 @@ class AwardsController extends AbstractController
 
         $award = $registry->getRepository(Awards::class)->findOneBy(array('identifier' => $identifier));
 
-        if (!$award):
-            return $this->json('No award found for identifier '.$identifier, 404);
+        if (!$award) :
+            return $this->json('No award found for identifier ' . $identifier, 404);
         endif;
 
         $awardData = $this->getAwardData($award);
@@ -80,12 +81,12 @@ class AwardsController extends AbstractController
 
         $awards = $registry->getRepository(Awards::class)->findBy(array($queryKey => $queryValue), array('identifier' => 'ASC'));
 
-        if (!$awards):
+        if (!$awards) :
             return $this->json('No awards found for ' . $queryKey . ' = ' . $queryValue, 404);
         endif;
         $awardsData = array();
 
-        foreach ($awards as $award):
+        foreach ($awards as $award) :
             $awardsData[] = $this->getAwardData($award);
         endforeach;
 
