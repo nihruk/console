@@ -1,0 +1,11 @@
+{
+    http_port 80
+    https_port 443
+}
+
+:80 {
+
+    root * /srv/ioda/public
+    php_fastcgi php:9000
+
+}
