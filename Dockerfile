@@ -30,7 +30,7 @@ RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pd
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-ENTRYPOINT ["symfony", "server:start" ]
+#ENTRYPOINT ["symfony", "server:start" ]
 
 # @todo we aim to load these stages in paralell, see https://github.com/nihruk/console/issues/75
 FROM mcr.microsoft.com/mssql/server:2017-latest as mssql
