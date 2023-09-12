@@ -3,8 +3,8 @@
 .vercel
 .idea
 
-/docker/logstash/pipelines/*
-!/docker/logstash/pipelines/.keep
+/docker/logstash/pipelines/data/*
+!/docker/logstash/pipelines/data/.keep
 
 /docker/volumes/info_nihr_db
 
