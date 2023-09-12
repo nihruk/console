@@ -280,4 +280,9 @@ services:
       - SQL_PASSWORD1=${SQL_PASSWORD1}
       - SQL_USER2=${SQL_USER2}
       - SQL_PASSWORD2=${SQL_PASSWORD2}
+      - DB_SERVER1=${DB_SERVER1}
+      - DB_SERVER2=${DB_SERVER2}
+      - DB_NAME1=${DB_NAME1}
+      - DB_NAME2=${DB_NAME2}
+      - DB_NAME3=${DB_NAME3}
       - ELASTIC_HOSTS=https://es01:9200
