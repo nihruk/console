@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\AwardsRepository;
+use App\Repository\AwardsSqlRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AwardsRepository::class)]
-class Awards
+#[ORM\Table(name: 'awards')]
+#[ORM\Entity(repositoryClass: AwardsSqlRepository::class)]
+class AwardsSql
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

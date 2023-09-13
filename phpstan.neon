@@ -5,4 +5,4 @@ parameters:
 		- tests
 	checkGenericClassInNonGenericObjectType: false
 	excludePaths:
-	    - 'src/Controller/AwardsController.php'
+	    - 'src/Controller/AwardsSqlController.php'

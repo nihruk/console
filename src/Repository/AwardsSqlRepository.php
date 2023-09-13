@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Awards;
+use App\Entity\AwardsSql;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Awards>
+ * @extends ServiceEntityRepository<AwardsSql>
  *
- * @method Awards|null find($id, $lockMode = null, $lockVersion = null)
- * @method Awards|null findOneBy(array $criteria, array $orderBy = null)
- * @method Awards[]    findAll()
- * @method Awards[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AwardsSql|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AwardsSql|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AwardsSql[]    findAll()
+ * @method AwardsSql[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AwardsRepository extends ServiceEntityRepository
+class AwardsSqlRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Awards::class);
+        parent::__construct($registry, AwardsSql::class);
     }
 
-    public function save(Awards $entity, bool $flush = false): void
+    public function save(AwardsSql $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -32,7 +32,7 @@ class AwardsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Awards $entity, bool $flush = false): void
+    public function remove(AwardsSql $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
