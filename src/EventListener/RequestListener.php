@@ -19,14 +19,14 @@ class RequestListener
     /**
      * @var string
      */
-    private $environment;
+    private string $environment;
     /**
      * @var array<String>
      */
-    private $acceptable;
+    private array $acceptable;
 
     public function __construct(
-        private LoggerInterface $logger,
+        private readonly LoggerInterface $logger,
         string $environment,
         private string|null $accepts = ''
     ) {
@@ -38,7 +38,7 @@ class RequestListener
     {
         if (!empty($data)) {
             return is_string($data) &&
-                is_array(json_decode($data, true)) ? true : false;
+                is_array(json_decode($data, true));
         }
         return false;
     }
