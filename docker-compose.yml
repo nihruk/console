@@ -39,7 +39,7 @@ services:
   webserver:
     depends_on:
       - php
-    image: caddy:latest
+    image: caddy:2.7.4-alpine
     ports:
       - "80:80"
       - "443:443"
