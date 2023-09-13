@@ -41,8 +41,6 @@ RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opca
 #enable jit
 RUN echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
-
-
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # @todo we aim to load these stages in paralell, see https://github.com/nihruk/console/issues/75
@@ -57,6 +55,3 @@ RUN mkdir /usr/src/sql
 
 COPY tests/assets/mssql/init/setupTestDB.sql /usr/src/sql
 COPY tests/assets/mssql/mssql.conf var/opt/mssql
-
-
-
