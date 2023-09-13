@@ -40,7 +40,6 @@ services:
     depends_on:
       - php
     image: caddy:latest
-    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
