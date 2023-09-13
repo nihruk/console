@@ -2,8 +2,6 @@ FROM php:8.1-fpm as php
 
 WORKDIR /srv/ioda
 
-#args for php
-
 # install composer
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
@@ -46,8 +44,6 @@ RUN echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-
 
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-
-#ENTRYPOINT ["symfony", "server:start" ]
 
 # @todo we aim to load these stages in paralell, see https://github.com/nihruk/console/issues/75
 FROM mcr.microsoft.com/mssql/server:2017-latest as mssql
