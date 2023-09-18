@@ -1,9 +1,9 @@
-FROM php:8.1-fpm as php
+FROM php:8.1-fpm as php-build
 
 WORKDIR /srv/ioda
-
+ENV COMPOSER_ALLOW_SUPERUSER=1
 # install composer
-COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+#COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
 # install the symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash
@@ -41,7 +41,16 @@ RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opca
 #enable jit
 RUN echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
+FROM php:8.1-fpm as php
 
+#COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+#COPY --from=php-build /usr/local/lib/php/extensions  /usr/local/lib/php/extensions/
+#COPY --from=php-build  /usr/local/etc/php  /usr/local/etc/
+#COPY --from=php-build /usr/local/bin/symfony /usr/local/bin/
+#COPY --from=php-build /usr/local/bin/symfony /usr/local/bin/symfony
+
+
+COPY --from=php-build /usr/ .
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 

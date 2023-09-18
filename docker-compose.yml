@@ -27,7 +27,7 @@ services:
     build: # we are specifying the version in the Dockerfile
       context: .
       target: php
-      dockerfile: Dockerfile
+      dockerfile: docker/php/Dockerfile
     volumes:
       - .:/srv/ioda
       - /srv/ioda/vendor
@@ -47,7 +47,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ./docker/volumes/info_nihr_db/mssql-data:/var/opt/mssql/data/
+      - ./docker/info_nihr_db/mssql-data:/var/opt/mssql/data/
 
 
 
