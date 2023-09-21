@@ -62,14 +62,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/resourceId'
-  '/program':
+  '/programme':
     get:
       tags:
-        - Research program
-      summary: Get a collection of research programs
+        - Research programme
+      summary: Get a collection of research programmes
       responses:
         '200':
-          '$ref': '#/components/responses/200OKProgramCollection'
+          '$ref': '#/components/responses/200OKProgrammeCollection'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -86,14 +86,14 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/program/{programId}':
+  '/programme/{programmeId}':
     get:
       tags:
-        - Research program
-      summary: Get a research program
+        - Research programme
+      summary: Get a research programme
       responses:
         '200':
-          '$ref': '#/components/responses/200OKProgram'
+          '$ref': '#/components/responses/200OKProgramme'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '404':
@@ -113,7 +113,7 @@ paths:
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
-      - '$ref': '#/components/parameters/programId'
+      - '$ref': '#/components/parameters/programmeId'
   '/award':
     get:
       operationId: getAwardCollection
@@ -142,7 +142,7 @@ paths:
     parameters:
       - '$ref': '#/components/parameters/organisationIdFilter'
         name: manager
-      - '$ref': '#/components/parameters/programIdFilter'
+      - '$ref': '#/components/parameters/programmeIdFilter'
       - '$ref': '#/components/parameters/organisationIdFilter'
         name: contractor
       - '$ref': '#/components/parameters/callIdFilter'
@@ -710,19 +710,19 @@ components:
         - id
         - name
       additionalProperties: false
-    program:
+    programme:
       type: object
-      title: Program
-      description: A research program.
+      title: Programme
+      description: A research programme.
       properties:
         id:
-          '$ref': '#/components/schemas/programId'
+          '$ref': '#/components/schemas/programmeId'
         name:
           type: string
           title: Name
           minLength: 1
           maxLength: 255
-          description: The research program's human-readable name.
+          description: The research programme's human-readable name.
       required:
         - id
         - name
@@ -770,8 +770,8 @@ components:
           '$ref': '#/components/schemas/organisationReference'
         call:
           '$ref': '#/components/schemas/callReference'
-        program:
-          '$ref': '#/components/schemas/programReference'
+        programme:
+          '$ref': '#/components/schemas/programmeReference'
         contractor:
           '$ref': '#/components/schemas/organisationReference'
         isrctn:
@@ -790,7 +790,7 @@ components:
         - id
         - manager
         - call
-        - program
+        - programme
         - contractor
       additionalProperties: false
     call:
@@ -821,12 +821,12 @@ components:
           format: date
           examples:
             - 2000-01-01
-        programStream:
-          '$ref': '#/components/schemas/programStream'
+        programmeStream:
+          '$ref': '#/components/schemas/programmeStream'
       required:
         - id
         - name
-        - programStream
+        - programmeStream
       additionalProperties: false
     journal:
       type: object
@@ -1003,19 +1003,19 @@ components:
       type: string
       minLength: 1
       maxLength: 255
-    programId:
-      title: Program ID
-      description: A research program ID.
+    programmeId:
+      title: Programme ID
+      description: A research programme ID.
       type: string
       minLength: 1
       maxLength: 255
-    programReference:
-      title: Program reference
-      description: The relative URL of the endpoint to call to retrieve this research program.
+    programmeReference:
+      title: Programme reference
+      description: The relative URL of the endpoint to call to retrieve this research programme.
       type: string
       format: uri
       examples:
-        - /program/123
+        - /programme/123
     awardId:
       title: Award ID
       description: An award ID.
@@ -1204,8 +1204,8 @@ components:
       examples:
         - 123e4567-e89b-12d3-a456-426614174000
       readonly: true
-    programStream:
-      title: Program stream
+    programmeStream:
+      title: Programme stream
       description: |
         - A `commissioned` research call is a call for research on a specific topic
         - A `researcher-led` call is an open call for research
@@ -1374,19 +1374,19 @@ components:
       in: query
       schema:
         '$ref': '#/components/schemas/callId'
-    programId:
-      name: programId
-      description: Research program ID.
+    programmeId:
+      name: programmeId
+      description: Research programme ID.
       in: path
       required: true
       schema:
-        '$ref': '#/components/schemas/programId'
-    programIdFilter:
-      name: program
-      description: Research program ID.
+        '$ref': '#/components/schemas/programmeId'
+    programmeIdFilter:
+      name: programme
+      description: Research programme ID.
       in: query
       schema:
-        '$ref': '#/components/schemas/programId'
+        '$ref': '#/components/schemas/programmeId'
     awardId:
       name: awardId
       description: Award ID.
@@ -1494,25 +1494,25 @@ components:
             type: array
             items:
               '$ref': '#/components/schemas/resource'
-    200OKProgram:
-      description: A research program.
+    200OKProgramme:
+      description: A research programme.
       content:
         application/json:
           schema:
-            '$ref': '#/components/schemas/program'
+            '$ref': '#/components/schemas/programme'
       links:
         awards:
           operationId: getAwardCollection
           parameters:
-            program: '$response.body#/id'
-    200OKProgramCollection:
-      description: A collection of research programs.
+            programme: '$response.body#/id'
+    200OKProgrammeCollection:
+      description: A collection of research programmes.
       content:
         application/json:
           schema:
             type: array
             items:
-              '$ref': '#/components/schemas/programReference'
+              '$ref': '#/components/schemas/programmeReference'
     200OKAward:
       description: An award.
       content:
