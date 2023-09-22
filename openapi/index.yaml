@@ -10,14 +10,14 @@ servers:
   - url: 'https://example.com'
     description: Live API.
 paths:
-  '/resource':
+  '/resources':
     get:
       tags:
-        - Resource
+        - Resources
       description: Get a collection of resources.
       responses:
         '200':
-          '$ref': '#/components/responses/200OKResourceCollection'
+          '$ref': '#/components/responses/200OKResources'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -34,7 +34,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/resource/{resourceId}':
+  '/resources/{resourceId}':
     get:
       tags:
         - Resource
@@ -62,14 +62,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/resourceId'
-  '/programme':
+  '/programmes':
     get:
       tags:
-        - Research programme
+        - Research programmes
       summary: Get a collection of research programmes
       responses:
         '200':
-          '$ref': '#/components/responses/200OKProgrammeCollection'
+          '$ref': '#/components/responses/200OKProgrammes'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -86,7 +86,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/programme/{programmeId}':
+  '/programmes/{programmeId}':
     get:
       tags:
         - Research programme
@@ -114,15 +114,15 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/programmeId'
-  '/award':
+  '/awards':
     get:
-      operationId: getAwardCollection
+      operationId: getAwards
       tags:
-        - Award
+        - Awards
       summary: Get a collection of awards
       responses:
         '200':
-          '$ref': '#/components/responses/200OKAwardCollection'
+          '$ref': '#/components/responses/200OKAwards'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -148,7 +148,7 @@ paths:
       - '$ref': '#/components/parameters/callIdFilter'
       - '$ref': '#/components/parameters/personIdFilter'
         name: people
-  '/award/{awardId}':
+  '/awards/{awardId}':
     get:
       tags:
         - Award
@@ -176,7 +176,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/awardId'
-  '/call/{callId}':
+  '/calls/{callId}':
     get:
       tags:
         - Call
@@ -204,14 +204,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/callId'
-  '/journal':
+  '/journals':
     get:
       tags:
-        - Journal
+        - Journals
       summary: Get a collection of journals
       responses:
         '200':
-          '$ref': '#/components/responses/200OKJournalCollection'
+          '$ref': '#/components/responses/200OKJournals'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -228,7 +228,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/journal/{journalId}':
+  '/journals/{journalId}':
     get:
       tags:
         - Journal
@@ -256,15 +256,15 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/journalId'
-  '/volume':
+  '/volumes':
     get:
-      operationId: getVolumeCollection
+      operationId: getVolumes
       tags:
-        - Volume
+        - Volumes
       summary: Get a collection of volumes
       responses:
         '200':
-          '$ref': '#/components/responses/200OKVolumeCollection'
+          '$ref': '#/components/responses/200OKVolumes'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -283,7 +283,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/journalIdFilter'
-  '/volume/{volumeId}':
+  '/volumes/{volumeId}':
     get:
       tags:
         - Volume
@@ -311,15 +311,15 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/volumeId'
-  '/publication':
+  '/publications':
     get:
-      operationId: getPublicationCollection
+      operationId: getPublications
       tags:
-        - Publication
+        - Publications
       summary: Get a collection of publications
       responses:
         '200':
-          '$ref': '#/components/responses/200OKPublicationCollection'
+          '$ref': '#/components/responses/200OKPublications'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -340,7 +340,7 @@ paths:
       - '$ref': '#/components/parameters/awardIdFilter'
       - '$ref': '#/components/parameters/journalIdFilter'
       - '$ref': '#/components/parameters/volumeIdFilter'
-  '/publication/{publicationId}':
+  '/publications/{publicationId}':
     get:
       tags:
         - Publication
@@ -368,14 +368,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/publicationId'
-  '/person':
+  '/persons':
     get:
       tags:
-        - Person
+        - Persons
       summary: Get a collection of people
       responses:
         '200':
-          '$ref': '#/components/responses/200OKPersonCollection'
+          '$ref': '#/components/responses/200OKPersons'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -392,7 +392,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/person/{personId}':
+  '/persons/{personId}':
     get:
       tags:
         - Person
@@ -420,14 +420,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/personId'
-  '/organisation':
+  '/organisations':
     get:
       tags:
-        - Organisation
+        - Organisations
       summary: Get a collection of organisations.
       responses:
         '200':
-          '$ref': '#/components/responses/200OKOrganisationCollection'
+          '$ref': '#/components/responses/200OKOrganisations'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '405':
@@ -444,7 +444,7 @@ paths:
           '$ref': '#/components/responses/503ServiceUnavailable'
         '504':
           '$ref': '#/components/responses/504GatewayTimeout'
-  '/organisation/{organisationId}':
+  '/organisations/{organisationId}':
     get:
       tags:
         - Organisation
@@ -472,14 +472,14 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
     parameters:
       - '$ref': '#/components/parameters/organisationId'
-  '/user':
+  '/users':
     get:
       tags:
         - User
       summary: Get a collection of users
       responses:
         '200':
-          '$ref': '#/components/responses/200OKUserCollection'
+          '$ref': '#/components/responses/200OKUsers'
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
@@ -538,7 +538,7 @@ paths:
           '$ref': '#/components/responses/504GatewayTimeout'
       security:
         - ioda: []
-  '/user/{userId}':
+  '/users/{userId}':
     get:
       tags:
         - User
@@ -1486,7 +1486,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/resource'
-    200OKResourceCollection:
+    200OKResources:
       description: A collection of resources
       content:
         application/json:
@@ -1502,10 +1502,10 @@ components:
             '$ref': '#/components/schemas/programme'
       links:
         awards:
-          operationId: getAwardCollection
+          operationId: getAwards
           parameters:
             programme: '$response.body#/id'
-    200OKProgrammeCollection:
+    200OKProgrammes:
       description: A collection of research programmes.
       content:
         application/json:
@@ -1519,7 +1519,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/award'
-    200OKAwardCollection:
+    200OKAwards:
       description: A collection of awards.
       content:
         application/json:
@@ -1539,7 +1539,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/journal'
-    200OKJournalCollection:
+    200OKJournals:
       description: A collection of journals.
       content:
         application/json:
@@ -1555,10 +1555,10 @@ components:
             '$ref': '#/components/schemas/volume'
       links:
         publications:
-          operationId: getPublicationCollection
+          operationId: getPublications
           parameters:
             volume: '$response.body#/id'
-    200OKVolumeCollection:
+    200OKVolumes:
       description: A collection of volumes.
       content:
         application/json:
@@ -1572,7 +1572,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/publication'
-    200OKPublicationCollection:
+    200OKPublications:
       description: A collection of publications.
       content:
         application/json:
@@ -1586,7 +1586,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/person'
-    200OKPersonCollection:
+    200OKPersons:
       description: A collection of people.
       content:
         application/json:
@@ -1602,14 +1602,14 @@ components:
             '$ref': '#/components/schemas/organisation'
       links:
         contractedAwards:
-          operationId: getAwardCollection
+          operationId: getAwards
           parameters:
             contractor: '$response.body#/id'
         managedAwards:
-          operationId: getAwardCollection
+          operationId: getAwards
           parameters:
             manager: '$response.body#/id'
-    200OKOrganisationCollection:
+    200OKOrganisations:
       description: A collection of organisations.
       content:
         application/json:
@@ -1623,7 +1623,7 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/user'
-    200OKUserCollection:
+    200OKUsers:
       description: A collection of users.
       content:
         application/json:
