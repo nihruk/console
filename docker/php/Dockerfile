@@ -64,3 +64,7 @@ RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-ph
 
 WORKDIR /usr/local/
 COPY --from=installers_build --link /usr/local/bin/symfony bin/
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+ENTRYPOINT ["symfony", "server:start" ]
