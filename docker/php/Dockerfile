@@ -1,57 +1,66 @@
-FROM php:8.1-fpm as php-build
+FROM php:8.1-fpm-alpine as upstream
+FROM mlocati/php-extension-installer:2 AS php_extension_installer
+FROM composer:latest AS composer_upstream
 
-WORKDIR /srv/ioda
-ENV COMPOSER_ALLOW_SUPERUSER=1
-# install composer
-#COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
-# install the symfony cli
+FROM upstream as installers_build
+RUN apk add --no-cache curl gnupg bash
+
+#Download mssql packages
+RUN curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/msodbcsql18_18.3.1.1-1_amd64.apk
+RUN curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/mssql-tools18_18.3.1.1-1_amd64.apk
+
+# verify mssql packages
+RUN curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/msodbcsql18_18.3.1.1-1_amd64.sig
+RUN curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/mssql-tools18_18.3.1.1-1_amd64.sig
+RUN curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import -
+RUN gpg --verify msodbcsql18_18.3.1.1-1_amd64.sig msodbcsql18_18.3.1.1-1_amd64.apk
+RUN gpg --verify mssql-tools18_18.3.1.1-1_amd64.sig mssql-tools18_18.3.1.1-1_amd64.apk
+
+# install mssql packages
+RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk
+RUN apk add --allow-untrusted mssql-tools18_18.3.1.1-1_amd64.apk
+
+#install symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony #this is v5 of the symphony cli, not symfony
 
-# install php extensions @todo keeping this readable for now, but optimisation will be needed, see https://github.com/nihruk/console/issues/75
-RUN apt-get update
-RUN apt-get install -y libzip-dev gnupg2 wget
-RUN docker-php-ext-install zip
 
-# set up the microsoft repo
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
-# install MSSQL drivers
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18
-RUN pecl install sqlsrv
-RUN pecl install pdo_sqlsrv
+# the base php image for both prod and dev environments
+FROM upstream as base
+WORKDIR /opt
 
-#enable mssql extensions
-RUN docker-php-ext-enable sqlsrv
-RUN echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
-RUN echo "pdo_sqlsrv.pooling_enabled = 0" >> /usr/local/etc/php/conf.d/docker_pdo_sqlsrv.ini
+# alpine packages common to all environments. use no-cache instead of APK update
+RUN apk add --no-cache fcgi git file acl gettext
 
-#enable opcache
-RUN docker-php-ext-enable opcache
+# copy in the mssql drivers todo might need to look at the PATH
+COPY --from=installers_build  --link /opt/ .
+
+WORKDIR /usr/bin/
+COPY --from=php_extension_installer --link /usr/bin/install-php-extensions .
+
+# install a base set of php extensions for all environments
+# using https://hub.docker.com/r/mlocati/php-extension-installer \
+RUN set -euxo pipefail;   \
+    install-php-extensions \
+        opcache \
+        sqlsrv \
+    ;
+
+# add composer
+COPY --from=composer_upstream /usr/bin/composer /usr/bin/composer
+
+FROM base as php_dev
+
+RUN apk add --no-cache wget
 
 #configure opcache with recommended general settings as per symfony performance docs
-RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.interned_strings_buffer=8" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.max_accelerated_files=20000" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
+    echo "opcache.max_accelerated_files=20000" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
+    echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
+    echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
+    echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini  #enable jit
 
-#enable jit
-RUN echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-
-FROM php:8.1-fpm as php
-
-#COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
-#COPY --from=php-build /usr/local/lib/php/extensions  /usr/local/lib/php/extensions/
-#COPY --from=php-build  /usr/local/etc/php  /usr/local/etc/
-#COPY --from=php-build /usr/local/bin/symfony /usr/local/bin/
-#COPY --from=php-build /usr/local/bin/symfony /usr/local/bin/symfony
-
-
-COPY --from=php-build /usr/ .
-
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-ENTRYPOINT ["symfony", "server:start" ]
+WORKDIR /usr/local/
+COPY --from=installers_build --link /usr/local/bin/symfony bin/
