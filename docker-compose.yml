@@ -32,7 +32,7 @@ services:
       - /srv/ioda/vendor
     working_dir: /srv/ioda
     ports:
-      - "9000:9000"
+      - "8000:8000"
 
   info_nihr_db:
     environment:
