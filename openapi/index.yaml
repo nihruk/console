@@ -483,7 +483,7 @@ paths:
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
-          '$ref': '#/components/responses/401Unauthorized'
+          '$ref': '#/components/responses/401Unauthorised'
         '403':
           '$ref': '#/components/responses/403Forbidden'
         '405':
@@ -517,7 +517,7 @@ paths:
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
-          '$ref': '#/components/responses/401Unauthorized'
+          '$ref': '#/components/responses/401Unauthorised'
         '403':
           '$ref': '#/components/responses/403Forbidden'
         '404':
@@ -549,7 +549,7 @@ paths:
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
-          '$ref': '#/components/responses/401Unauthorized'
+          '$ref': '#/components/responses/401Unauthorised'
         '403':
           '$ref': '#/components/responses/403Forbidden'
         '404':
@@ -585,7 +585,7 @@ paths:
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
-          '$ref': '#/components/responses/401Unauthorized'
+          '$ref': '#/components/responses/401Unauthorised'
         '403':
           '$ref': '#/components/responses/403Forbidden'
         '404':
@@ -616,7 +616,7 @@ paths:
         '400':
           '$ref': '#/components/responses/400BadRequest'
         '401':
-          '$ref': '#/components/responses/401Unauthorized'
+          '$ref': '#/components/responses/401Unauthorised'
         '403':
           '$ref': '#/components/responses/403Forbidden'
         '404':
@@ -662,10 +662,10 @@ components:
         - links
       additionalProperties: false
     resourceLink:
-        type: string
-        format: uri
-        examples:
-          - /resource/123
+      type: string
+      format: uri
+      examples:
+        - /resource/123
     rel:
       type: string
       minLength: 1
@@ -1107,8 +1107,8 @@ components:
     personInvolvement:
       name: Involvement
       oneOf:
-      - type: object
-      - '$ref': '#/components/schemas/contributorInvolvement'
+        - type: object
+        - '$ref': '#/components/schemas/contributorInvolvement'
       discriminator:
         propertyName: role
         mapping:
@@ -1153,7 +1153,7 @@ components:
     credit:
       description: A [Contributor Roles Taxonomy](https://credit.niso.org/) (CRediT) role that describes a contributor's involvement.
       enum:
-        - conceptualization
+        - conceptualisation
         - data-curation
         - formal-analysis
         - funding-acquisition
@@ -1164,7 +1164,7 @@ components:
         - software
         - supervision
         - validation
-        - visualization
+        - visualisation
         - writing-original-draft
         - writing-review-editing
     institutionId:
@@ -1637,8 +1637,8 @@ components:
         application/json:
           schema:
             '$ref': '#/components/schemas/error'
-    401Unauthorized:
-      description: An HTTP 401 Unauthorized error.
+    401Unauthorised:
+      description: An HTTP 401 Unauthorised error.
       content:
         application/json:
           schema:
