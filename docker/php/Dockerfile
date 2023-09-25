@@ -34,8 +34,15 @@ WORKDIR /opt
 # alpine packages common to all environments. use no-cache instead of APK update
 RUN apk add --no-cache fcgi git file acl gettext
 
-# copy in the mssql drivers todo might need to look at the PATH
-COPY --from=installers_build  --link /opt/ .
+## copy in the mssql drivers todo might need to look at the PATH
+#COPY --from=installers_build  --link /opt/ .
+
+# copy the verified mssql odbc installers from previous stage
+COPY --from=installers_build --link /var/www/html/msodbcsql18_18.3.1.1-1_amd64.apk .
+COPY --from=installers_build --link /var/www/html/mssql-tools18_18.3.1.1-1_amd64.apk .
+
+# install mssql packages
+RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk  mssql-tools18_18.3.1.1-1_amd64.apk
 
 WORKDIR /usr/bin/
 COPY --from=php_extension_installer --link /usr/bin/install-php-extensions .
@@ -52,7 +59,6 @@ RUN set -euxo pipefail;   \
 COPY --from=composer_upstream /usr/bin/composer /usr/bin/composer
 
 FROM base as php_dev
-ENV ACCEPT_EULA=y
 
 #configure opcache with recommended general settings as per symfony performance docs
 RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
@@ -65,12 +71,7 @@ RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-ph
 WORKDIR /usr/local/
 COPY --from=installers_build --link /usr/local/bin/symfony bin/
 
-# copy the verified mssql odbc installers from previous stage
-COPY --from=installers_build --link /var/www/html/msodbcsql18_18.3.1.1-1_amd64.apk .
-COPY --from=installers_build --link /var/www/html/mssql-tools18_18.3.1.1-1_amd64.apk .
 
-# install mssql packages
-RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk  mssql-tools18_18.3.1.1-1_amd64.apk
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
