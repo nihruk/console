@@ -17,9 +17,9 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import -
 RUN gpg --verify msodbcsql18_18.3.1.1-1_amd64.sig msodbcsql18_18.3.1.1-1_amd64.apk
 RUN gpg --verify mssql-tools18_18.3.1.1-1_amd64.sig mssql-tools18_18.3.1.1-1_amd64.apk
 
-# install mssql packages
-RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk
-RUN apk add --allow-untrusted mssql-tools18_18.3.1.1-1_amd64.apk
+## install mssql packages
+#RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk
+#RUN apk add --allow-untrusted mssql-tools18_18.3.1.1-1_amd64.apk
 
 #install symfony cli
 RUN curl -sS https://get.symfony.com/cli/installer | bash
@@ -52,7 +52,7 @@ RUN set -euxo pipefail;   \
 COPY --from=composer_upstream /usr/bin/composer /usr/bin/composer
 
 FROM base as php_dev
-
+ENV ACCEPT_EULA=y
 RUN apk add --no-cache wget
 
 #configure opcache with recommended general settings as per symfony performance docs
@@ -62,8 +62,22 @@ RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-ph
     echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
     echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini  #enable jit
 
+# copy in the symfony cli
 WORKDIR /usr/local/
 COPY --from=installers_build --link /usr/local/bin/symfony bin/
+
+# copy the verified mssql odbc installers from previous stage
+COPY --from=installers_build --link /var/www/html/msodbcsql18_18.3.1.1-1_amd64.apk .
+COPY --from=installers_build --link /var/www/html/mssql-tools18_18.3.1.1-1_amd64.apk .
+
+# install mssql packages
+RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk  mssql-tools18_18.3.1.1-1_amd64.apk
+
+## register the odbc driver
+#WORKDIR /etc/
+#COPY --from=installers_build --link /etc/odbcinst.ini .
+
+
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
