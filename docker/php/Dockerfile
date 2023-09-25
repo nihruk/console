@@ -53,7 +53,6 @@ COPY --from=composer_upstream /usr/bin/composer /usr/bin/composer
 
 FROM base as php_dev
 ENV ACCEPT_EULA=y
-RUN apk add --no-cache wget
 
 #configure opcache with recommended general settings as per symfony performance docs
 RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
@@ -72,12 +71,6 @@ COPY --from=installers_build --link /var/www/html/mssql-tools18_18.3.1.1-1_amd64
 
 # install mssql packages
 RUN apk add --allow-untrusted msodbcsql18_18.3.1.1-1_amd64.apk  mssql-tools18_18.3.1.1-1_amd64.apk
-
-## register the odbc driver
-#WORKDIR /etc/
-#COPY --from=installers_build --link /etc/odbcinst.ini .
-
-
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
