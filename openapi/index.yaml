@@ -665,7 +665,7 @@ components:
       type: string
       format: uri
       examples:
-        - /resource/123
+        - /resources/123
     rel:
       type: string
       minLength: 1
@@ -1015,7 +1015,7 @@ components:
       type: string
       format: uri
       examples:
-        - /programme/123
+        - /programmes/123
     awardId:
       title: Award ID
       description: An award ID.
@@ -1031,7 +1031,7 @@ components:
       type: string
       format: uri
       examples:
-        - /award/06/303/20
+        - /awards/06/303/20
     callId:
       description: A research call ID.
       type: string
@@ -1043,7 +1043,7 @@ components:
       type: string
       format: uri
       examples:
-        - /call/06/303
+        - /calls/06/303
     journalId:
       title: Journal ID
       description: A journal ID.
@@ -1060,9 +1060,9 @@ components:
       type: string
       format: uri
       examples:
-        - /journal/eme
-        - /journal/hsdr
-        - /journal/pgfar
+        - /journals/eme
+        - /journals/hsdr
+        - /journals/pgfar
     volumeId:
       title: Volume ID
       description: A volume ID.
@@ -1075,7 +1075,7 @@ components:
       type: string
       format: uri
       examples:
-        - /volume/???
+        - /volumes/10
     publicationId:
       title: Publication ID
       description: A publication ID.
@@ -1090,7 +1090,7 @@ components:
       type: string
       format: uri
       examples:
-        - /publication/DANE8826
+        - /publications/DANE8826
     personId:
       title: Person ID
       description: A person ID.
@@ -1103,7 +1103,7 @@ components:
       type: string
       format: uri
       examples:
-        - /person/123
+        - /persons/123
     personInvolvement:
       name: Involvement
       oneOf:
@@ -1182,7 +1182,7 @@ components:
       type: string
       format: uri
       examples:
-        - /organisation/123
+        - /organisations/123
     userId:
       title: User ID
       '$ref': '#/components/schemas/uuidV4'
@@ -1192,7 +1192,7 @@ components:
       type: string
       format: uri
       examples:
-        - /user/123e4567-e89b-12d3-a456-426614174000
+        - /users/123e4567-e89b-12d3-a456-426614174000
     uuidV4:
       title: UUID v4
       description: A UUID version 4.
