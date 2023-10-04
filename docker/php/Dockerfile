@@ -54,12 +54,9 @@ FROM base as php_dev
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# configure opcache with recommended general settings as per symfony performance docs
-RUN echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
-    echo "opcache.max_accelerated_files=20000" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
-    echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
-    echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
-    echo "opcache.jit_buffer_size=100M" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini  #enable jit
+
+# add config to set up JIT and opchache
+COPY docker/php/opcache_jit_prod.ini /usr/local/etc/php/conf.d
 
 # copy in the symfony cli
 WORKDIR /usr/local/
