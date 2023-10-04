@@ -5,6 +5,7 @@
 
 /docker/logstash/pipelines/data/*
 !/docker/logstash/pipelines/data/.keep
+/docker/info_nihr_db/mssql-data/*
 
 /docker/volumes/info_nihr_db
 
