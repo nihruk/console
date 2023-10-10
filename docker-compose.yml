@@ -46,7 +46,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ./docker/info_nihr_db/mssql-data:/var/opt/mssql/data/
+      - ./docker/volumes/info_nihr_db/mssql-data:/var/opt/mssql/data/
 
 
 
