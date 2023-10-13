@@ -7,7 +7,6 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\Tangerine;
 
 #[Route('/api', name: 'api_')]
 class ContentNegotiationController extends AbstractController
@@ -48,6 +47,9 @@ class ContentNegotiationController extends AbstractController
         return $textResponse;
     }
 
+    /**
+     * @throws Tangerine
+     */
     #[Route('/five-hundred', name: 'five_index', methods: ['POST'])]
     public function fiveHundred(): Response
     {
