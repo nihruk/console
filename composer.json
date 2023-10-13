@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
+        "elasticsearch/elasticsearch": "^8.9",
         "nelmio/api-doc-bundle": "^4.12",
         "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
@@ -87,10 +88,11 @@
         "test-phpcs": "./vendor/bin/phpcs",
         "test-phpunit": [
             "@test-phpunit-unit",
-            "@test-phpunit-web",
+            "@test-phpunit-web-build",
             "@test-phpunit-integration"
         ],
         "test-phpunit-unit": "./vendor/bin/phpunit --testsuite unit",
+        "test-phpunit-web-build": "./vendor/bin/phpunit --testsuite web-build",
         "test-phpunit-web": "./vendor/bin/phpunit --testsuite web",
         "test-phpunit-integration": "./vendor/bin/phpunit --testsuite integration",
         "fix": [

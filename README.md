@@ -31,6 +31,7 @@ This is currently a bare bones symfony project
 - Run `./bin/dev-build` to (re)build the Console (IODA) application
 
 #### Testing
-- Run `./bin/dev-test`
+- Run `./bin/dev-test` to run build tests
+- Run `./bin/dev-test web` to run live tests
 
 

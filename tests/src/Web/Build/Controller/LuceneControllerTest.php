@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Web\Controller;
+namespace App\Tests\Web\Build\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -20,11 +20,11 @@ class LuceneControllerTest extends WebTestCase
             '/api/parse/' . $test_query,
         );
         $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('Content-Type', 'application/json');
+        $this->assertResponseHeaderSame('Content-Type', 'application/json;charset=UTF-8');
         $response = $client->getResponse();
         $this->assertJson((string)$response->getContent());
         $this->assertJsonStringEqualsJsonString(
-            $test_response,
+            (string)json_encode($test_response),
             (string)$response->getContent()
         );
     }
@@ -37,7 +37,7 @@ class LuceneControllerTest extends WebTestCase
             '/api/es/centre:CCF',
         );
         $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('Content-Type', 'application/json');
+        $this->assertResponseHeaderSame('Content-Type', 'application/json;charset=UTF-8');
         $response = $client->getResponse();
         $this->assertJson((string)$response->getContent());
     }

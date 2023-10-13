@@ -60,12 +60,20 @@ services:
     working_dir: /srv/ioda
     ports:
       - "8081:8081"
-    command: sh -c "npm install && npm run server && tail -F dev/null"
+    command: >
+      bash -c '
+        npm install;
+        npm audit fix --force;
+        npm audit fix;
+        npm run server;
+        tail -F dev/null;
+      '
 
   elksetup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
+      - ./docker/elasticsearch/templates:/usr/share/elasticsearch/config/templates
     user: "0"
     command: >
       bash -c '
@@ -109,6 +117,7 @@ services:
         until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
         echo "Setting kibana_system password";
         until curl -s -X POST --cacert config/certs/ca/ca.crt -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        curl -s -X PUT --cacert config/certs/ca/ca.crt -H "Content-Type: application/json" https://elastic:${ELASTIC_PASSWORD}@es01:9200/_index_template/award_template?pretty -d @/usr/share/elasticsearch/config/templates/award_template.json
         echo "All done!";
       '
     healthcheck:
@@ -271,4 +280,5 @@ services:
       - DB_NAME1=${DB_NAME1}
       - DB_NAME2=${DB_NAME2}
       - DB_NAME3=${DB_NAME3}
+      - SQL_AWARD_PERSONS=${SQL_AWARD_PERSONS}
       - ELASTIC_HOSTS=https://es01:9200

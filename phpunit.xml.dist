@@ -30,9 +30,14 @@
             <directory>tests/src/Unit</directory>
         </testsuite>
 
-        <testsuite name="web">
-            <directory>tests/src/Web</directory>
+        <testsuite name="web-build">
+            <directory>tests/src/Web/Build</directory>
         </testsuite>
+
+        <testsuite name="web">
+            <directory>tests/src/Web/Init</directory>
+        </testsuite>
+
 
     </testsuites>
 

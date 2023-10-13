@@ -4,4 +4,10 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-docker exec ioda_php composer run test
+suite="${1:-build}"
+
+if [ "$suite" == "web" ]; then
+  docker exec ioda_php composer run test-phpunit-web
+else
+  docker exec ioda_php composer run test
+fi
