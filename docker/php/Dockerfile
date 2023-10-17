@@ -56,7 +56,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 
 # add config to set up JIT and opchache
-COPY docker/php/opcache_jit_dev.ini /usr/local/etc/php/conf.d
+COPY docker/php/ini/dev/*.ini /usr/local/etc/php/conf.d
 
 # copy in the symfony cli
 WORKDIR /usr/local/
