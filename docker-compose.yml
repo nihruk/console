@@ -53,10 +53,9 @@ services:
 
   luceneparser:
     container_name: luceneparser
-    image: node:18
+    image: node:20
     volumes:
       - .:/srv/ioda
-      - /srv/ioda/node_modules
     working_dir: /srv/ioda
     ports:
       - "8081:8081"
