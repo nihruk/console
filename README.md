@@ -1,9 +1,9 @@
-# IODA
+# Console (IODA)
 
-This is the home of IODA.
+This is the home of Console (IODA).
 
 ## Exploration
-IODA is currently in its exploration phase. Some of the efforts contained in the repository are:
+Console (IODA) is currently in its exploration phase. Some of the efforts contained in the repository are:
 
 ## OpenAPI Documentation
 
@@ -15,7 +15,7 @@ The specification is kept in `./openapi/index.yaml`, and follows OpenAPI 3.1, al
 
 - Run `npm run docs` in a Git clone to see the absolute latest documentation of the checked out version.
 
-## The IODA Web Application
+## The Console (IODA) Web Application
 This is currently a bare bones symfony project
 
 ## Development
@@ -28,7 +28,7 @@ This is currently a bare bones symfony project
 - Clone this repository
 - Open a Bash terminal (such as Git Bash or WSL if on Windows)
 - Run `./bin/dev-start` to start the development environment
-- Run `./bin/dev-build` to (re)build the IODA application
+- Run `./bin/dev-build` to (re)build the Console (IODA) application
 
 #### Testing
 - Run `./bin/dev-test`
