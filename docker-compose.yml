@@ -20,14 +20,13 @@ networks:
     external: false
 
 services:
-  php:
+  console_app:
     container_name: ioda_php
     depends_on:
       - luceneparser
     build: # we are specifying the version in the Dockerfile
-      context: .
-      target: php
-      dockerfile: Dockerfile
+      target: php_dev
+      dockerfile: docker/php/Dockerfile
     volumes:
       - .:/srv/ioda
       - /srv/ioda/vendor
@@ -43,7 +42,7 @@ services:
     build:
       context: .
       target: mssql
-      dockerfile: Dockerfile
+      dockerfile: docker/info_nihr_db/Dockerfile
     ports:
       - "1433:1433"
     volumes:
