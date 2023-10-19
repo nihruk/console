@@ -6,5 +6,7 @@ package.json
 package-lock.json
 node/test-ioda-specification.js
 openapi
+**/.keep
+**/.gitignore
 
 
