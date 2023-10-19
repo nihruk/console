@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Tests\Controller;
 
 use Exception;
 
@@ -11,7 +11,7 @@ class Tangerine extends Exception
     /**
      * @var string
      */
-    private static $tangerineWithError = 'tangerine';
+    private static string $tangerineWithError = 'tangerine';
     public function __construct(string $tangerineName)
     {
         self::$tangerineWithError = $tangerineName;
