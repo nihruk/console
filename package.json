@@ -24,8 +24,8 @@
   "scripts": {
     "server": "nodemon -L --exec ts-node node/index.ts",
     "docs": "bash -c './node_modules/.bin/http-server -c-1 -o -p 8081 ../openapi/'",
-    "test-ioda-specification": "node node/test-ioda-specification.js",
-    "test": "npm run test-ioda-specification"
+    "validate-spec": "ts-node node/validate-spec.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "express": "^4.18.2",

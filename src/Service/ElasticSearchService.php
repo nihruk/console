@@ -17,6 +17,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 class ElasticSearchService
 {
     /**
@@ -114,7 +115,6 @@ class ElasticSearchService
 
         return $response;
     }
-
 
     /**
      * @param object{data: object{hits: object{hits: list<object{_source:object}>}}} $data

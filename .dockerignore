@@ -4,7 +4,7 @@
 readme.md
 package.json
 package-lock.json
-node/test-ioda-specification.js
+node/validate-spec.ts
 openapi
 **/.keep
 **/.gitignore
