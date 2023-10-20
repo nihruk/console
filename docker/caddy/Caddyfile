@@ -1,10 +1,10 @@
  {
     debug
-    http_port 80
+    http_port 8000
     https_port 443
 }
 
-:80 {
+:8000 {
     root * /srv/ioda/public
-    php_fastcgi php:9000
+    php_fastcgi console_app:9000
 }
