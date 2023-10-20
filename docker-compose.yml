@@ -37,7 +37,7 @@ services:
 
   webserver:
     depends_on:
-      - php
+      - console_app
     image: caddy:2.7.4-alpine
     ports:
       - "80:80"
