@@ -21,7 +21,7 @@ networks:
 
 services:
   console_app:
-    container_name: ioda_php
+    container_name: console_app
     depends_on:
       - luceneparser
     build: # we are specifying the version in the Dockerfile
@@ -40,7 +40,7 @@ services:
       - console_app
     image: caddy:2.7.4-alpine
     ports:
-      - "80:80"
+      - "8000:8000"
       - "443:443"
     volumes:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
@@ -53,7 +53,7 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: Ff4rtB4gsFTWasl0IH8s3qu3ls3
-    container_name: infonihr
+    container_name: info_nihr_db
     build:
       context: .
       target: mssql
