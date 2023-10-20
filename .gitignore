@@ -5,8 +5,7 @@
 
 /docker/logstash/pipelines/data/*
 !/docker/logstash/pipelines/data/.keep
-
-/docker/volumes/info_nihr_db
+/docker/volumes/
 
 ###> symfony/framework-bundle ###
 /.env.local
