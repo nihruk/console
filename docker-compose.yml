@@ -29,7 +29,7 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/srv/ioda
-      - /srv/ioda/vendor
+    #      - /srv/ioda/vendor  @todo do not merge with this commented out.
     working_dir: /srv/ioda
     ports:
       - "9000:9000"
