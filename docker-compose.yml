@@ -29,7 +29,7 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/srv/ioda
-    #      - /srv/ioda/vendor  @todo do not merge with this commented out.
+      - /srv/ioda/vendor
     working_dir: /srv/ioda
     ports:
       - "9000:9000"
@@ -38,6 +38,7 @@ services:
   webserver:
     depends_on:
       - console_app
+    restart: unless-stopped
     image: caddy:2.7.4-alpine
     ports:
       - "8000:8000"
@@ -46,7 +47,6 @@ services:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./docker/caddy/config:/config
       - .:/srv/ioda
-
 
 
   info_nihr_db:
