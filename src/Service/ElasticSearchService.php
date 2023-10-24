@@ -12,12 +12,16 @@ use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Psr18Client;
 use stdClass;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * @psalm-type HitsType = object{data: object{hits: object{hits: list<object>}}}
+ */
 class ElasticSearchService
 {
     /**
@@ -62,6 +66,7 @@ class ElasticSearchService
         $this->logger->info((string)json_encode($id));
         $results = $this->getQuery($params);
 
+
         $time_start_node = microtime(true);
         $response = $this->httpClient->request('POST', 'http://luceneparser:8081/run', [
             'json' => ['fn' => 'aggAward', 'input' => json_encode($results)],
@@ -75,19 +80,24 @@ class ElasticSearchService
 
 
         $time_start_php = microtime(true);
-        $resjson = (object)json_decode((string)json_encode($results));
+        $json = json_encode($results);
+        $json = $json !== false ? (object)json_decode($json) : throw new UnprocessableEntityHttpException('Award Json could not be processed!');
+        $this->logger->info('Json type: ' . gettype($json));
         /**
-         * @var object{data: object{hits: object{hits: list<object{_source:object}>}}} $resjson
+         * @psalm-var HitsType $json
          */
-        $hits = $this->justTheHits($resjson);
+        $hits = $this->justTheHits($json);
+        /**
+         * @var list<object{_source:object}> $hits
+         */
         $res = $this->aggAward($hits);
         $res = json_encode($res);
         $time_end_php = microtime(true);
         $time_php = $time_end_php - $time_start_php;
         $this->logger->info('PHP took: ' . $time_php);
 
-//        return (object)json_decode((string)$res);
-        return (object)json_decode($response);
+        return (object)json_decode((string)$res);
+//        return (object)json_decode($response);
     }
 
     /**
@@ -105,7 +115,7 @@ class ElasticSearchService
              */
             $search = $this->client->search($params);
             if (method_exists($search, 'asArray')) :
-                $response->data = (object)$search->asArray();
+                $response->data = $search->asArray();
             else :
                 $response->error = ['message' => 'asArray method not found!'];
             endif;
@@ -117,19 +127,19 @@ class ElasticSearchService
     }
 
     /**
-     * @param object{data: object{hits: object{hits: list<object{_source:object}>}}} $data
+     * @psalm-param HitsType $data
+     * @return array<object>
      */
-    public function justTheHits(object $data): object
+    public function justTheHits(object $data): array
     {
-        $hits = $data->data->hits->hits;
-        if ($hits) {
-            $hits = $hits[0]->_source;
-        }
-        return (object)$hits;
+        return $data->data->hits->hits;
     }
 
-    private function aggAward(object $award): object
+    /**
+     * @param list<object{_source:object}> $award
+     */
+    private function aggAward(array $award): object
     {
-        return $award;
+        return $award[0]->_source;
     }
 }

@@ -10,4 +10,5 @@ if [ "$suite" == "web" ]; then
   docker exec ioda_php composer run test-phpunit-web
 else
   docker exec ioda_php composer run test
+  docker exec luceneparser npm run validate-spec
 fi

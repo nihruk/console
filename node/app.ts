@@ -15,6 +15,7 @@ app.post('/run', (req: Request, res: Response) => {
     } else {
         fn = aggAward(req.body.input)
     }
+    fn.source = "node"
     let out = fn
     res.send(out)
 });
