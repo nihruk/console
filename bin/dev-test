@@ -4,4 +4,4 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-docker exec ioda_php composer run test
+docker exec console_app composer run test
