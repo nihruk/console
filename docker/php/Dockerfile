@@ -62,3 +62,5 @@ COPY docker/php/ini/dev/*.ini /usr/local/etc/php/conf.d
 WORKDIR /usr/local/
 COPY --from=installers_build --link /usr/local/bin/symfony bin/
 
+# start symfony's built in webserver
+ENTRYPOINT ["symfony", "server:start" ]
