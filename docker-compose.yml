@@ -21,7 +21,7 @@ networks:
 
 services:
   console_app:
-    container_name: ioda_php
+    container_name: console_app
     depends_on:
       - luceneparser
     build: # we are specifying the version in the Dockerfile
@@ -32,13 +32,28 @@ services:
       - /srv/ioda/vendor
     working_dir: /srv/ioda
     ports:
+      - "9000:9000"
+
+
+  webserver:
+    depends_on:
+      - console_app
+    restart: unless-stopped
+    image: caddy:2.7.4-alpine
+    ports:
       - "8000:8000"
+      - "443:443"
+    volumes:
+      - ./docker/webserver/Caddyfile:/etc/webserver/Caddyfile
+      - ./docker/webserver/config:/config
+      - .:/srv/ioda
+
 
   info_nihr_db:
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: Ff4rtB4gsFTWasl0IH8s3qu3ls3
-    container_name: infonihr
+    container_name: info_nihr_db
     build:
       context: .
       target: mssql
@@ -265,9 +280,4 @@ services:
       - SQL_PASSWORD1=${SQL_PASSWORD1}
       - SQL_USER2=${SQL_USER2}
       - SQL_PASSWORD2=${SQL_PASSWORD2}
-      - DB_SERVER1=${DB_SERVER1}
-      - DB_SERVER2=${DB_SERVER2}
-      - DB_NAME1=${DB_NAME1}
-      - DB_NAME2=${DB_NAME2}
-      - DB_NAME3=${DB_NAME3}
       - ELASTIC_HOSTS=https://es01:9200
