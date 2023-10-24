@@ -42,7 +42,7 @@ In the WSL terminal: `/home/<your account>/console`
 
  - Run `./bin/dev-start` to start the development environment
  - Run `./bin/dev-build` to (re)build the PHP application
- - 
+
 You can use Window Explorer to open the code in your favourite IDE
 
 #### Testing
