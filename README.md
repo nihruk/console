@@ -29,6 +29,7 @@ This is currently a bare bones symfony project
 - Open a Bash terminal (such as Git Bash or WSL if on Windows)
 - Run `./bin/dev-start` to start the development environment
 - Run `./bin/dev-build` to (re)build the Console (IODA) application
+- Go to http://localhost:8000 to access the Console (IODA)
 
 #### Testing
 - Run `./bin/dev-test` to run build tests
