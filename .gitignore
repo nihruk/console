@@ -5,6 +5,10 @@
 
 /docker/logstash/pipelines/data/*
 !/docker/logstash/pipelines/data/.keep
+/src/Service/ElasticSearchService/Data/*
+!/src/Service/ElasticSearchService/Data/.keep
+/node/utils/data/*
+!/node/utils/data/.keep
 /docker/volumes/
 
 ###> symfony/framework-bundle ###

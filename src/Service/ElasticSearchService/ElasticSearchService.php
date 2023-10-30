@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\ElasticSearchService;
 
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
@@ -10,8 +10,8 @@ use Elastic\Elasticsearch\Exception\AuthenticationException;
 use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpClient\Psr18Client;
 use stdClass;
+use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -84,7 +84,7 @@ class ElasticSearchService
         $json = $json !== false ? (object)json_decode($json) : throw new UnprocessableEntityHttpException('Award Json could not be processed!');
         $this->logger->info('Json type: ' . gettype($json));
         /**
-         * @psalm-var HitsType $json
+         * @var object{data: object{hits: object{hits: list<object{_source:object}>}}} $json
          */
         $hits = $this->justTheHits($json);
         /**
@@ -126,20 +126,45 @@ class ElasticSearchService
         return $response;
     }
 
+//    /**
+//     * @psalm-param HitsType $data
+//     */
+//    public function justTheHits(object $data): array
+//    {
+//        return $data->data->hits->hits;
+//    }
+
     /**
-     * @psalm-param HitsType $data
-     * @return array<object>
+     * @param object{data: object{hits: object{hits: list<object{_source:object}>}}} $data
+     * @return list<object{_source:object}>
      */
     public function justTheHits(object $data): array
     {
+//        $hits = $data->data->hits->hits;
+//        if ($hits) {
+//            $hits = $hits[0]->_source;
+//        }
         return $data->data->hits->hits;
     }
 
     /**
      * @param list<object{_source:object}> $award
+     * @return object
      */
     private function aggAward(array $award): object
     {
-        return $award[0]->_source;
+        $file = __DIR__ . '/Data/Aggregations.php';
+        $award_agged = $award[0]->_source;
+        if (file_exists($file)) {
+            require_once($file);
+            if (class_exists('App\Service\ElasticSearchService\Data\Aggregations')) {
+                /**
+                 * @psalm-suppress MixedMethodCall
+                 * @psalm-suppress RedundantCast
+                 */
+                $award_agged = (object)(new Data\Aggregations())->aggAwardData($award_agged);
+            }
+        }
+        return $award_agged;
     }
 }
